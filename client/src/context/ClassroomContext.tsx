@@ -53,7 +53,6 @@ const ClassroomState = (props: any) => {
                 },
             });
             const data = await res.json();
-            console.log(data);
             if (data.success) {
                 return data.classrooms;
             } else {
@@ -99,7 +98,7 @@ const ClassroomState = (props: any) => {
             });
             const data = await res.json();
             if (data.success) {
-                return data.data;
+                return data.classroom;
             } else {
                 toastMessage(data.error, "error");
                 return {};
@@ -110,11 +109,61 @@ const ClassroomState = (props: any) => {
         }
     }
 
+    const deleteClassroom = async (classroomID: string) => {
+
+        try {
+            const res = await fetch(`${url}/api/classroom`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+                body: JSON.stringify({classroomID})
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Classroom deleted successfully", "success");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+
+    const removeClassroomStudent = async (studentID: string, classroomID: string) => {
+            try {
+                const res = await fetch(`${url}/api/classroom/removestudent`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token") || ""
+                    },
+                    body: JSON.stringify({classroomID , studentID})
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toastMessage("Student removed successfully", "success");
+                    return true;
+                } else {
+                    toastMessage(data.error, "error");
+                    return false;
+                }
+            } catch (err) {
+                console.log(err);
+                return false;
+            }
+        }
+
 
 
 
     return (
-        <ClassroomContext.Provider value={{toastMessage, createClassroom, getAllStudents, getClassroomInfo, getAllClassrooms}}>
+        <ClassroomContext.Provider value={{toastMessage, createClassroom, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom}}>
         {props.children}
         </ClassroomContext.Provider>
     )

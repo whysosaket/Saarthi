@@ -77,7 +77,7 @@ const joinClassroom = async (req: CustomRequest, res: Response) => {
   let success = false;
 
   // Saving req data into a variable
-  let data = req.body;
+  let data = req.params;
 
   try {
     // check if user exists
@@ -87,7 +87,7 @@ const joinClassroom = async (req: CustomRequest, res: Response) => {
     }
 
     // check if classroom exists
-    let classroom = await Classroom.findOne({ classroomId: data.classroomID });
+    let classroom = await Classroom.findOne({ classRoomId: data.classroomID });
     if (!classroom) {
       return res.status(400).json({ success, error: "Classroom not found!" });
     }
@@ -175,8 +175,8 @@ const getClassroomInfo = async (req: CustomRequest, res: Response) => {
 
     let classroomID = data.classroomID;
     let classroom = await Classroom.findOne({ classRoomId: classroomID })
-    .populate("teacherId", "name email")
-    .populate("studentIds", "name email studentId");
+      .populate("teacherId", "name email")
+      .populate("studentIds", "name email studentId");
 
     if (!classroom) {
       return res.status(400).json({ success, error: "Classroom not found!" });
@@ -189,10 +189,104 @@ const getClassroomInfo = async (req: CustomRequest, res: Response) => {
   }
 };
 
+const deleteClassroom = async (req: CustomRequest, res: Response) => {
+  let success = false;
+
+  // Saving req data into a variable
+  let data = req.body;
+  try {
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    let classroomID = data.classroomID;
+    let classroom = await Classroom.findOne({ classRoomId: classroomID });
+
+    if (!classroom) {
+      return res.status(400).json({ success, error: "Classroom not found!" });
+    }
+
+    // check if user is the teacher of the classroom
+    if (String(classroom.teacherId._id) != String(user._id)) {
+      return res
+        .status(400)
+        .json({ success, error: "User is not the teacher of the classroom!" });
+    }
+
+    // delete the classroom
+    await Classroom.deleteOne({ classRoomId: classroomID });
+
+    success = true;
+    return res.json({ success, info: "Classroom deleted!" });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+};
+
+const removeStudentFromClassroom = async (
+  req: CustomRequest,
+  res: Response
+) => {
+  let success = false;
+
+  // Saving req data into a variable
+  let data = req.body;
+  try {
+    // check if user exists
+    let user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    let classroomID = data.classroomID;
+    let classroom = await Classroom.findOne({ classRoomId: classroomID });
+
+    if (!classroom) {
+      return res.status(400).json({ success, error: "Classroom not found!" });
+    }
+
+    // check if user is the teacher of the classroom
+    if (String(classroom.teacherId._id) != String(user._id)) {
+      return res
+        .status(400)
+        .json({ success, error: "User is not the teacher of the classroom!" });
+    }
+
+    // check if student exists
+    let student: any = await User.findOne({ studentId: data.studentID });
+    if (!student) {
+      return res.status(400).json({ success, error: "Student not found!" });
+    }
+
+    // check if student is in the classroom
+    if (!classroom.studentIds.includes(student._id)) {
+      return res
+        .status(400)
+        .json({ success, error: "Student not in the classroom!" });
+    }
+
+    // remove student from classroom
+    classroom.studentIds = classroom.studentIds.filter(
+      (id) => String(id) != String(student._id)
+    );
+    await classroom.save();
+
+    success = true;
+    return res.json({ success, info: "Student removed from classroom!" });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+};
+
 export {
   createClassroom,
   joinClassroom,
   getClassroomStudents,
   getTeacherClassrooms,
   getClassroomInfo,
+  deleteClassroom,
+  removeStudentFromClassroom,
 };

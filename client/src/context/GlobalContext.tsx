@@ -91,7 +91,7 @@ const GlobalState = (props: any) => {
 
 
     return (
-        <GlobalContext.Provider value={{toastMessage, handleComponentChange,setActiveClassroom, activeComponent, progress, setProgress, login, signup, isAuthenticated, handleLogout}}>
+        <GlobalContext.Provider value={{toastMessage, handleComponentChange,setActiveClassroom,activeClassroom, activeComponent, progress, setProgress, login, signup, isAuthenticated, handleLogout}}>
         {props.children}
         </GlobalContext.Provider>
     )
