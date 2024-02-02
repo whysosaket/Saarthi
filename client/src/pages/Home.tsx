@@ -5,12 +5,10 @@ import Hero2 from "../components/Home/Hero2"
 const Home = () => {
   return (
     <>
+        
         <Hero />   
-        <div>
-            
-        </div>     
-        <Hero2 />        
-      
+        <Hero2 />  
+              
     </>
   )
 }
