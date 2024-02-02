@@ -8,7 +8,8 @@ const studentAssignmentSchema = new mongoose.Schema({
     submission: {type: String, required: false},
     submittedDate: {type: Date, required: false},
     plagarism: {type: Boolean, required: false},
-    similarityIndex: {type: Number, required: false}
+    similarityIndex: {type: Number, required: false},
+    content: {type: String, required: false}
 });
 
 export default mongoose.model('studentAssignment', studentAssignmentSchema);

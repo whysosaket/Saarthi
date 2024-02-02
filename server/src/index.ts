@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import router from './routes';
-
 import cors from 'cors';
 import connectDB from './database';
 
