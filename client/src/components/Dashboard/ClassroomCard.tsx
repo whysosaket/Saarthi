@@ -1,9 +1,18 @@
 import {motion} from "framer-motion"
+import GlobalContext from "../../context/GlobalContext";
+import {useContext} from "react";
 
-const ClassroomCard = (props: {index: number}) => {
+const ClassroomCard = (props: {index: number, classRoom: any}) => {
+    const {handleComponentChange, setActiveClassroom} = useContext(GlobalContext);
+
+    const handleClassroomClick = () => {
+        setActiveClassroom(props.classRoom.classRoomId);
+        handleComponentChange("classroom");
+    }
   return (
     <>
       <motion.div
+      onClick={handleClassroomClick}
       initial={{y: 100+props.index*50}}
       animate={{y: 0}}
       transition={{duration: 0.3+props.index/10}}
@@ -14,11 +23,12 @@ const ClassroomCard = (props: {index: number}) => {
           alt="dancing"
         />
         <h4 className="text-white text-2xl font-bold capitalize text-center">
-          Dancing
+          {props.classRoom.className}
         </h4>
-        <p className="text-white/50">108 students</p>
+        <p className="text-white/50 font-semibold">{props.classRoom.studentIds.length} students</p>
+        <p className="text-white/50">{props.classRoom.subject}</p>
         <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-          86 Online{" "}
+          {props.classRoom.classRoomId}
           <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse" />
         </p>
       </motion.div>

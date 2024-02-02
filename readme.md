@@ -1,6 +1,6 @@
-# Sarthi 🚀
+# Saarthi 🚀
 
-Sarthi is an innovative educational platform designed to provide a seamless and enhanced experience for both educators and students. Empowering education through cutting-edge features and user-friendly design.
+Saarthi is an innovative educational platform designed to provide a seamless and enhanced experience for both educators and students. Empowering education through cutting-edge features and user-friendly design.
 
 ## Features 🌟
 

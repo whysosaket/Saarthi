@@ -12,6 +12,7 @@ import DynamicBackground from "./components/DynamicBackground";
 
 import { GlobalState } from "./context/GlobalContext";
 import Dashboard from "./pages/Dashboard";
+import { ClassroomState } from "./context/ClassroomContext";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         limit={2}
       />
       <GlobalState>
+        <ClassroomState>
         <Router>
           <Navbar />
           <div className="mt-16 bg-transparent"> </div>
@@ -41,6 +43,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
+        </ClassroomState>
       </GlobalState>
     </>
   );

@@ -2,13 +2,26 @@ import ClassroomCard from "./ClassroomCard";
 import { HiOutlineViewGrid } from "react-icons/hi";
 import { GoPlus } from "react-icons/go";
 import {motion} from "framer-motion";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";
+import ClassroomContext from "../../context/ClassroomContext";
 
-const classRooms = [1, 2, 3, 4, 5];
 
 const Classrooms = () => {
     const {  handleComponentChange } = useContext(GlobalContext);
+    const {getAllClassrooms} = useContext(ClassroomContext);
+    const [classRooms, setClassRooms] = useState([]);
+
+    useEffect(() => {
+        handleGetAllClassrooms();
+    }, []);
+
+    const handleGetAllClassrooms = async () => {
+        const response = await getAllClassrooms();
+        if(response){
+            setClassRooms(response);
+        }
+    }
   return (
     <>
     <div className="flex-1 px-2 sm:px-0">
@@ -52,7 +65,7 @@ const Classrooms = () => {
               </div>
 
               {classRooms.map((classRoom, index) => (
-                <ClassroomCard key={index} index={index} />
+                <ClassroomCard key={index} index={index} classRoom={classRoom} />
               ))}
             </motion.div>
           </div>

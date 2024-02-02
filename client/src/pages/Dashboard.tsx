@@ -4,6 +4,7 @@ import CreateClassroom from "../components/Dashboard/CreateClassroom";
 import VerticalNavbar from "../components/Dashboard/VerticalNavbar";
 import { useEffect, useContext } from "react";
 import GlobalContext from "../context/GlobalContext";
+import Classroom from "../components/Dashboard/Classroom";
 
 const Dashboard = () => {
   const { activeComponent, handleComponentChange } = useContext(GlobalContext);
@@ -24,6 +25,7 @@ const Dashboard = () => {
           {activeComponent === "classrooms" && <Classrooms />}
           {activeComponent === "createClassrooms" && <CreateClassroom />}
           {activeComponent === "assignments" && <Assignments />}
+          {activeComponent === "classroom" && <Classroom />}
         </div>
       </div>
     </>

@@ -15,7 +15,11 @@ const CreateClassroom = () => {
             Create Classroom
           </motion.h3>
         </div>
-          <CreateClassroomForm />
+          <div className="">
+            <div>
+                <CreateClassroomForm />
+            </div>
+          </div>
       </div>
     </>
   );

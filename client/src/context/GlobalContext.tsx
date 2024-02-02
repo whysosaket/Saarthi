@@ -3,13 +3,14 @@ const GlobalContext = createContext<any>({});
 import { toast } from "react-toastify";
 let url = import.meta.env.VITE_URL;
 
-const items = ["classrooms", "createClassrooms", "assignments"];
+const items = ["classrooms", "createClassrooms", "assignments", "classroom"];
 
 const GlobalState = (props: any) => {
 
     const [progress, setProgress] = useState(0);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [activeComponent, setActiveComponent] = useState("classrooms");
+    const [activeClassroom, setActiveClassroom] = useState("");
 
 
     const toastMessage = (message: string, type: string) => {
@@ -42,7 +43,7 @@ const GlobalState = (props: any) => {
             });
             const data = await res.json();
             if (data.success) {
-                localStorage.setItem("auth-token", data.token);
+                localStorage.setItem("auth-token", data.authtoken);
                 toastMessage("Logged in successfully", "success");
                 setIsAuthenticated(true);
                 return true
@@ -90,7 +91,7 @@ const GlobalState = (props: any) => {
 
 
     return (
-        <GlobalContext.Provider value={{toastMessage, handleComponentChange, activeComponent, progress, setProgress, login, signup, isAuthenticated, handleLogout}}>
+        <GlobalContext.Provider value={{toastMessage, handleComponentChange,setActiveClassroom, activeComponent, progress, setProgress, login, signup, isAuthenticated, handleLogout}}>
         {props.children}
         </GlobalContext.Provider>
     )
