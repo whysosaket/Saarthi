@@ -13,6 +13,7 @@ import DynamicBackground from "./components/DynamicBackground";
 import { GlobalState } from "./context/GlobalContext";
 import Dashboard from "./pages/Dashboard";
 import { ClassroomState } from "./context/ClassroomContext";
+import { AssignmentState } from "./context/AssignmentContext";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <DynamicBackground />
       <ToastContainer
         position="top-right"
-        autoClose={2000}
+        autoClose={1200}
         hideProgressBar={false}
         newestOnTop={false}
         theme="dark"
@@ -31,6 +32,7 @@ function App() {
       />
       <GlobalState>
         <ClassroomState>
+          <AssignmentState>
         <Router>
           <Navbar />
           <div className="mt-16 bg-transparent"> </div>
@@ -43,6 +45,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
+          </AssignmentState>
         </ClassroomState>
       </GlobalState>
     </>

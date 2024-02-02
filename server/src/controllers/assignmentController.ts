@@ -55,7 +55,8 @@ const createAssignment = async (req: CustomRequest, res: Response) => {
             description: data.description,
             dueDate: data.dueDate,
             assignedDate: new Date(),
-            questions: data.questions
+            questions: data.questions,
+            classroomName: classroom.className,
         });
 
         // save the assignment
@@ -131,6 +132,7 @@ const addStudentsToAssignment = async (req: CustomRequest, res: Response) => {
         success = true;
         return res.json({ success, info: "Students added to assignment!" });
     } catch (error) {
+
         return res.status(500).json({ success, error: "Internal Server Error!" });
     }
 }
@@ -171,4 +173,26 @@ const getAssignment = async (req: CustomRequest, res: Response) => {
     }
 }
 
-export { createAssignment, addStudentsToAssignment, getAssignment };
+const getAllAssignments = async (req: CustomRequest, res: Response) => {
+    let success = false;
+    
+    // Saving req data into a variable
+    let data = req.params;
+    
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        const assignments = await Assignment.find({ teacherId: req.user.id });
+
+        success = true;
+        return res.json({ success, assignments });
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+
+export { createAssignment, addStudentsToAssignment, getAssignment, getAllAssignments };

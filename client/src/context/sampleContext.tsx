@@ -1,10 +1,10 @@
 import {createContext, useEffect, useState} from "react";
-const ClassroomContext = createContext<any>({});
+const SampleContext = createContext<any>({});
 import { toast } from "react-toastify";
 
 let url = import.meta.env.VITE_URL;
 
-const ClassroomState = (props: any) => {
+const SampleState = (props: any) => {
 
     const toastMessage = (message: string, type: string) => {
         if (type === "success") toast.success(message);
@@ -22,11 +22,11 @@ const ClassroomState = (props: any) => {
 
 
     return (
-        <ClassroomContext.Provider value={{toastMessage}}>
+        <SampleContext.Provider value={{toastMessage}}>
         {props.children}
-        </ClassroomContext.Provider>
+        </SampleContext.Provider>
     )
 }
 
-export default ClassroomContext;
-export {ClassroomState};
+export default SampleContext;
+export {SampleState};

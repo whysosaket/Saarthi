@@ -9,7 +9,9 @@ const studentAssignmentSchema = new mongoose.Schema({
     submittedDate: {type: Date, required: false},
     plagarism: {type: Boolean, required: false},
     similarityIndex: {type: Number, required: false},
-    content: {type: String, required: false}
+    content: {type: String, required: false},
+    status: {type: String, required: false, default: 'pending'},
+    feedback: {type: [String], required: false},
 });
 
 export default mongoose.model('studentAssignment', studentAssignmentSchema);
