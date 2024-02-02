@@ -13,7 +13,7 @@ import { isEmailValid, toTitleCase, generateRandomString } from "../utils/UserHe
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
-const createUser = async (req: CustomRequest, res: Response) => {
+const createUser = async (req: Request, res: Response) => {
   let success = false;
 
   // Saving req data into a variable
@@ -24,19 +24,17 @@ const createUser = async (req: CustomRequest, res: Response) => {
     // Checking if email is valid
     if (!isEmailValid(data.email)) {
       return res.json({ success, error: "Please, enter a valid email" });
-      return null;
     }
 
     // Checking if user already exists
     let user = await User.findOne({ email: data.email });
     if (user) {
-      res
+      return res
         .status(400)
         .json({
           success,
-          error: "Sorry, a user with this employee id already exists!",
+          error: "Sorry, Email ID is already registered!",
         });
-      return null;
     }
 
     // Using bcrypt to generate a secured password
