@@ -6,3 +6,7 @@ body{
   background-color: #000000;
   /* background-image: url("https://www.transparenttextures.com/patterns/church.png"); */
 }
+
+html {
+  scroll-behavior: smooth;
+}

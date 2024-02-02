@@ -28,7 +28,7 @@ const Navbar = () => {
           className="md:w-3/12 w-6/12 p-2 flex justify-start my-aut mt-0"
         >
           <img className="fill-indigo-400 -mr-6" height={50} width={80} src="/logo.png" />
-          <span className={`${!top?"text-white":"leading-tighter tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"} my-auto font-bold text-xl`}>
+          <span className={`${!top?"text-white":"bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"} my-auto font-bold text-xl`}>
             aarthi
           </span>
         </Link>

@@ -1,15 +1,25 @@
+import Menu from "./Menu";
+import {motion} from "framer-motion";
+
 const Services = () => {
   return (
-    <div className="w-full flex justify-center mt-8">
-        <h1 className="text-4xl font-semibold">
-        Our 
-        <span className="ml-3 text-blue-500">Services</span>
-        </h1>
-        <div className="">
-            
-        </div>
-    </div>
-  )
-}
+    <div className="w-full flex my-auto flex-col">
+      <div>
+        <motion.h1
+        initial={{ x: 500, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="text-4xl font-semibold text-center">
+          Our
+          <span className="ml-3 text-blue-500">Services</span>
+        </motion.h1>
+      </div>
 
-export default Services
+      <div className="flex justify-center">
+            <Menu />
+      </div>
+    </div>
+  );
+};
+
+export default Services;
