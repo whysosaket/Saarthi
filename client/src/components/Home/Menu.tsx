@@ -90,7 +90,7 @@ const Menu = () => {
         transition={{ duration: 0.5, delay: 0.2+index/10 }}
           key={index} className="bg-gray-800 px-3 py-2 rounded-3xl my-4 hover:bg-gray-700 cursor-pointer">
             <h1 className="text-center font-semibold">
-              Online Assignment Submission
+              {item.name}
                 <FaArrowRight className="ml-2 inline-block hover:animate-pulse" />
             </h1>
           </motion.div>

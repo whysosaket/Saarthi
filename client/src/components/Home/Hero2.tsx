@@ -1,4 +1,3 @@
-import React from "react";
 import Plx from "react-plx";
 import Image from "../../assets/hero2.svg";
 import Atropos from "atropos/react";
