@@ -57,7 +57,7 @@ const _404 = () => {
                 >
                   <Link
                     to="/"
-                    className="bg-indigo-400 hover:bg-indigo-600  px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-50 rounded-full hover:shadow-lg"
+                    className="bg-blue-400 hover:bg-blue-600  px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-50 rounded-full hover:shadow-lg"
                   >
                     Got to Home
                   </Link>

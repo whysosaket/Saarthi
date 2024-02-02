@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import GlitchLogo from "./GlitchLogo";
 
-const items = ['Loading', 'LinkMyLinks'];
+const items = ['Loading', 'Saarthi'];
 
 const Loading = () => {
 

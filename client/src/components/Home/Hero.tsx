@@ -34,7 +34,7 @@ const Hero = () => {
   return (
     <Plx
       parallaxData={divParallaxData}
-      className="flex dark:text-white py-20 px-16 h-screen"
+      className="flex text-white py-20 px-16 h-screen"
     >
       <div className="w-1/2 flex justify-center align-middle flex-col">
         <motion.h1

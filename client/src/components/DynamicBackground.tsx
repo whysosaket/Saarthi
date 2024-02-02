@@ -1,6 +1,6 @@
 const DynamicBackground = () => {
   return (
-    <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80" className="fixed w-screen opacity-50 blur-md">
+    <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80" className="fixed w-screen opacity-50 -z-10 blur-md">
     <defs>
       <style>
         {

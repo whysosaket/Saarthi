@@ -16,7 +16,7 @@ function App() {
       <DynamicBackground />
        <Router>
       <Navbar />
-      <div className="mt-16">{" "}</div>
+      <div className="mt-16 bg-transparent">{" "}</div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

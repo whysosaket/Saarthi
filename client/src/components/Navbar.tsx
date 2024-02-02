@@ -39,7 +39,7 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li className="p-4 border-b-2 dark:hover:text-indigo-200 dark:hover:border-indigo-200 border-indigo-500 border-opacity-0 hover:border-opacity-100 hover:text-indigo-500 duration-200 cursor-pointer">
-              <Link to="/profile">List</Link>
+              <Link to="/profile">Profile</Link>
             </li>
             <li className="p-4 border-b-2 dark:hover:text-indigo-200 dark:hover:border-indigo-200 border-indigo-500 border-opacity-0 hover:border-opacity-100 hover:text-indigo-500 duration-200 cursor-pointer">
               <Link to="/about">About</Link>

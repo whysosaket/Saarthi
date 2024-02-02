@@ -26,7 +26,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="">
       <>
         <motion.div
         initial={{scaleY: 1.4}}
