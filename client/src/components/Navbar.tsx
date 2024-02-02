@@ -48,20 +48,20 @@ const Navbar = () => {
         </nav>
         {/* buttons -*/}
         <div className="w-6/12  md:w-3/12 flex justify-end">
-          {!localStorage.getItem("s-auth-token")? (
+          {!localStorage.getItem("auth-token")? (
             <Link
               to="/login"
-              className={`rounded-md shadow-md px-4 py-2 font-semibold ${top?"bg-gray-100 text-black hover:bg-gray-300":"bg-slate-800 hover:bg-slate-800"}`}
+              className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
             >
               Login
             </Link>
           ) : (
             <button
             onClick={()=> {
-              localStorage.removeItem("s-auth-token");
+              localStorage.removeItem("auth-token");
               navigate("/welcome");
             }}
-            className={`rounded-md shadow-md px-4 py-2 font-semibold ${top?"bg-gray-100 text-black hover:bg-gray-300":"bg-slate-800 hover:bg-slate-800"}`}
+            className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
             >
               Logout
             </button>
