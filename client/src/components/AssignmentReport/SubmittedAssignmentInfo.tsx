@@ -96,6 +96,23 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
             {props.a.submittedAssignment.disputeMessage}
           </div>
 }
+
+<div className="text-white text-sm font-extralight">
+            <span className="font-semibold mr-3">Plagarism:</span>
+
+            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+          </div>
+
+          <div className="text-white text-sm font-extralight">
+            <span className="font-semibold mr-3">Internet Plagarism:</span>
+
+            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+          </div>
+          <div className="text-white text-sm font-extralight">
+            <span className="font-semibold mr-3">AI Plagarism:</span>
+
+            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+          </div>
         </div>
         <div className="flex justify-start">
           <button onClick={downloadAnswer} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex">

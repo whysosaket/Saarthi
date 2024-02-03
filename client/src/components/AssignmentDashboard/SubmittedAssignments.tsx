@@ -1,11 +1,13 @@
 import AssignmentContext from "../../context/AssignmentContext";
 import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import GlobalContext from "../../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 const SubmittedAssignments = (props: { assignmentID: string }) => {
   const { getSubmittedAssignments } = useContext(AssignmentContext);
   const [submittedAssignments, setSubmittedAssignments] = useState([]);
+  const { handleComponentChange } = useContext(GlobalContext);
 
   useEffect(() => {
     handleGetSubmittedAssignments();
@@ -17,6 +19,15 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
         setSubmittedAssignments(response);
     }
   };
+
+  const navigate = useNavigate();
+
+  const handleAssignmentClick = (assignmentID: string) => {
+    handleComponentChange("assignmentReport");
+    navigate(`/assignmentreport/${assignmentID}`);
+  }
+  
+
 
 
   return (
@@ -37,11 +48,12 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
             <span className="text-white/50 text-center">Submission Date</span>
           </div>
           {submittedAssignments.map((assignment: any, index: number) => (
-            <Link key={index} to={`/assignmentreport/${assignment.submission._id}`}>
             <motion.div
                 initial={{ opacity: 0.0, x: 50 + index * 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
+                key={index}
+                onClick={()=>handleAssignmentClick(assignment.submission._id)}
               className="bg-white/10 w-full my-4 p-4 flex justify-between rounded-lg cursor-pointer hover:bg-white/20 hover:smooth-hover"
             >
               <span className="text-white/50 text-center">
@@ -54,7 +66,6 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
                 {new Date(assignment.submission.submittedDate).toDateString()}
               </span>
             </motion.div>
-            </Link>
           ))}
         </div>
       </div>

@@ -3,7 +3,7 @@ const GlobalContext = createContext<any>({});
 import { toast } from "react-toastify";
 let url = import.meta.env.VITE_URL;
 
-const items = ["classrooms", "createClassrooms", "assignments", "classroom", "assignment", "createAssignments"];
+const items = ["classrooms", "createClassrooms", "assignments", "classroom", "assignment", "createAssignments", "assignmentReport", "uploadAssignment", "viewAssignment"];
 const studentItems = ["classrooms", "assignments", "classroom", "assignment", "uploadAssignment", "viewAssignment"];
 
 const GlobalState = (props: any) => {

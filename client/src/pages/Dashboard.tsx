@@ -7,6 +7,7 @@ import { useEffect, useContext } from "react";
 import GlobalContext from "../context/GlobalContext";
 import Classroom from "../components/Dashboard/Classroom";
 import AssignmentDashboard from "../components/AssignmentDashboard/AssignmentDashboard";
+import AssignmentReport from "./AssignmentReport";
 
 const Dashboard = () => {
   const { activeComponent } = useContext(GlobalContext);
@@ -30,6 +31,7 @@ const Dashboard = () => {
           {activeComponent === "classroom" && <Classroom />}
           {activeComponent === "createAssignments" && <CreateAssignment />}
           {activeComponent === "viewAssignment" && <AssignmentDashboard />}
+          {activeComponent === "assignmentReport" && <AssignmentReport />}
         </div>
       </div>
     </>

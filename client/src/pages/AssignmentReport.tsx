@@ -35,7 +35,7 @@ const AssignmentReport = () => {
   return (
     <>
     {isLoaded ?
-    <div className="my-8 h-screen w-full">
+    <div className="h-screen w-full -mt-8">
       <motion.h1
       initial={{y: -100}}
         animate={{y: 0}}
