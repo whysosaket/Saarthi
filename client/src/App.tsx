@@ -15,6 +15,8 @@ import Dashboard from "./pages/Dashboard";
 import { ClassroomState } from "./context/ClassroomContext";
 import { AssignmentState } from "./context/AssignmentContext";
 import Join from "./pages/Join";
+import StudentDashboard from "./pages/StudentDashboard";
+import { StudentState } from "./context/StudentContext";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
       />
       <GlobalState>
         <ClassroomState>
+          <StudentState>
           <AssignmentState>
         <Router>
           <Navbar />
@@ -42,6 +45,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/studentdashboard" element={<StudentDashboard />} />
             <Route path="/join">
               <Route path="" element={<Join />} />
               <Route path=":id" element={<Join />} />
@@ -51,6 +55,7 @@ function App() {
           <Footer />
         </Router>
           </AssignmentState>
+          </StudentState>
         </ClassroomState>
       </GlobalState>
     </>

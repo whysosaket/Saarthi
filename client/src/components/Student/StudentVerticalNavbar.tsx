@@ -3,7 +3,7 @@ import { IoHomeSharp, IoSettingsSharp } from "react-icons/io5";
 import { MdAssignment, MdFileDownload } from "react-icons/md";
 import GlobalContext from "../../context/GlobalContext";
 import { useContext } from "react";
-import { PiStudent } from "react-icons/pi";
+import { PiChalkboardTeacherFill } from "react-icons/pi";
 
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -49,14 +49,14 @@ const VerticalNavbar = () => {
         </motion.button>
       </nav>
       <div className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
-        <Link to="/studentdashboard">
+        <Link to="/dashboard">
         <motion.button
           initial={{ scale: 0.6, rotate: 90 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 0.3, delay: 0.4 }}
           className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
         >
-            <PiStudent className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
+            <PiChalkboardTeacherFill className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
         </motion.button>
         </Link>
         <motion.button
