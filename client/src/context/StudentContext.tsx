@@ -59,12 +59,33 @@ const StudentState = (props: any) => {
         }
     }
 
+    const getStudent = async (studentID: string) => {
+        try {
+            const res = await fetch(`${url}/api/student/${studentID}`, {
+                method: "GET",
+                headers: {
+                    "auth-token": localStorage.getItem("auth-token")!,
+                },
+            });
+            const data = await res.json();
+            if (data.success) {
+                return data.student;
+            }else {
+                toastMessage(data.error, "error");
+                return {};
+            }
+        } catch (err) {
+            console.log(err);
+            return {};
+        }
+    }
+
 
 
 
 
     return (
-        <StudentContext.Provider value={{toastMessage, getMyClassrooms, getMyAssignments}}>
+        <StudentContext.Provider value={{toastMessage, getMyClassrooms, getMyAssignments, getStudent}}>
         {props.children}
         </StudentContext.Provider>
     )

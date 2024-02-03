@@ -1,28 +1,13 @@
 import { useLocation } from "react-router-dom";
 import SubmitAssignmentInfo from "./AssignmentInfo";
-import UploadAssignment from "../Submit/UploadAssignment";
-import { useContext, useEffect, useState } from "react";
-import AssignmentContext from "../../context/AssignmentContext";
+import SubmittedAssignments from "./SubmittedAssignments";
 
 
 const AssignmentDashboard = () => {
   const location = useLocation();
     let assignmentID = location.pathname.split("/")[2];
-
-    const {getAssignment} = useContext(AssignmentContext);
-    const [assignment, setAssignment] = useState({dueDate: ""});
     // const [isPastDue, setIsPastDue] = useState(false);
 
-    useEffect(() => {
-        handleGetAssignment();
-    }, []);
-
-    const handleGetAssignment = async () => {
-        const response = await getAssignment(assignmentID);
-        if(response){
-            setAssignment(response);
-        }
-    }
 
   return (
     <div className="my-8 h-screen w-full">
@@ -36,7 +21,7 @@ const AssignmentDashboard = () => {
             <SubmitAssignmentInfo assignmentID={assignmentID} />
         </div>
         <div className="w-1/2">
-            <UploadAssignment assignmentID={assignmentID} />
+            <SubmittedAssignments assignmentID={assignmentID} />
         </div>
     </div>
 

@@ -3,11 +3,16 @@ import { useEffect, useState, useContext } from "react"
 import {getDownloadURL, ref} from "firebase/storage";
 import { storage } from "../../firebase";
 import {motion} from "framer-motion";
+import GlobalContext from "../../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentInfo = (props: {assignmentID: string}) => {
 
-    const {getAssignment} = useContext(AssignmentContext);
+    const {getAssignment, deleteAssignment} = useContext(AssignmentContext);
+    const {handleComponentChange} = useContext(GlobalContext);
     const [assignment, setAssignment] = useState({assignmentName: "", description: "", dueDate: "", assignedDate: "", questions: "", answers: "", submissions: []});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         handleGetAssignment();
@@ -17,6 +22,8 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
         const response = await getAssignment(props.assignmentID);
         if(response){
             setAssignment(response);
+        }else{
+            handleComponentChange("classrooms");
         }
     }
 
@@ -28,6 +35,14 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
     const handleDownloadAnswers = async () => {
         const url = await getDownloadURL(ref(storage, assignment.answers));
         window.open(url);
+    }
+
+    const handleDeleteAssignment = async () => {
+        const response = await deleteAssignment(props.assignmentID);
+        if(response){
+            handleComponentChange("classrooms");
+            navigate("/dashboard");
+        }
     }
 
 
@@ -66,7 +81,7 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
                         Total Submissions: 
                     </span>
                     
-                    {assignment.submissions.length}
+                    {assignment.submissions&&assignment.submissions.length}
                 </div>
             </div>
             <div className="flex justify-start">
@@ -84,10 +99,15 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
         transition={{ duration: 0.7, delay: 0.4}}
         className="w-4/5 bg-white/5 rounded-xl p-8 mt-6">
             <div className="text-white text-3xl font-semibold">
-                Track Assignment
+                Manage Assignment
             </div>
             <div className="text-white text-sm font-extralight mt-6">
-                {assignment.questions}
+                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    Delete Assignment
+                </button>
+                <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-4">
+                    Edit Assignment
+                </button>
             </div>
         </motion.div>
     </div>

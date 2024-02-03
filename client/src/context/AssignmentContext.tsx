@@ -85,12 +85,11 @@ const AssignmentState = (props: any) => {
             if (data.success) {
                 return data.assignment;
             } else {
-                toastMessage(data.error, "error");
-                return {};
+                return false;
             }
         } catch (err) {
             console.log(err);
-            return {};
+            return false;
         }
     }
 
@@ -118,8 +117,52 @@ const AssignmentState = (props: any) => {
         }
     }
 
+    const getSubmittedAssignments = async (assignmentId: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/submitted/${assignmentId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+            });
+            const data = await res.json();
+            if (data.success) {
+                return data.submissions;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+    const deleteAssignment = async (assignmentId: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/delete/${assignmentId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Assignment deleted successfully", "success");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
     return (
-        <AssignmentContext.Provider value={{toastMessage, getAssignment,submitAssignment,  getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
+        <AssignmentContext.Provider value={{toastMessage,deleteAssignment, getAssignment,submitAssignment, getSubmittedAssignments, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
         {props.children}
         </AssignmentContext.Provider>
     )

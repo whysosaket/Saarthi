@@ -55,10 +55,29 @@ const getMyAssignments = async (req: CustomRequest, res: Response) => {
     }
 }
 
+const getStudent = async (req: CustomRequest, res: Response) => {
+    let success = false;
+
+    const { studentID } = req.params;
+    
+    try {
+        // check if user exists
+        let user = await User.findById(studentID);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        success = true;
+        return res.json({ success, user });
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
 
 
 
 
-export { getJoinedClassrooms, getMyAssignments };
+
+export { getJoinedClassrooms, getMyAssignments, getStudent };
 
         

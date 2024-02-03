@@ -27,8 +27,8 @@ const ClassroomAssignments = (props: {classroomID: string}) => {
                 transition={{duration: 0.3, delay: index*0.1}}
                 key={index} className={`justify-between  items-center mb-4 bg-white/10 p-4 rounded-lg`}>
                     <p className="font-semibold">{student.assignmentName}</p>
-                    <p>{student.description}</p>
-                    <p className="font-semibold text-blue-500">{new Date(student.dueDate).toDateString()}</p>
+                    <p>Submissions: {student.submissions.length}</p>
+                    <p className="font-semibold text-blue-500">Due Date: {new Date(student.dueDate).toDateString()}</p>
                 </motion.div>
                 )
             })

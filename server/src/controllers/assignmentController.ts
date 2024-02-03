@@ -334,6 +334,52 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
   }
 };
 
+const getSubmittedAssignments = async (req: CustomRequest, res: Response) => {
+    let success = false;
+    
+    // Saving req data into a variable
+    let data = req.params;
+    
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        // check if assignment exists
+        let assignment = await Assignment
+            .findOne({ assignmentId: data.assignmentID })
+            .populate('submissions');
+
+        if (!assignment) {
+            return res.status(400).json({ success, error: "Assignment not found!" });
+        }
+
+        // check if teacher is the owner of the assignment
+        if (String(assignment.teacherId) !== req.user.id) {
+            return res.status(400).json({ success, error: "You are not the owner of this assignment!" });
+        }
+
+        // add name of students to submissions
+        // ignore all ts errors
+
+        const sendNames = [];
+       
+        for (let i = 0; i < assignment.submissions.length; i++) {
+            // @ts-ignore
+            let student = await User.findById(assignment.submissions[i].student).select('name');
+            // @ts-ignore
+            sendNames.push({ name: student.name, submission: assignment.submissions[i] });
+        }
+
+        success = true;
+        return res.json({ success, submissions: sendNames });
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+
 export {
   createAssignment,
   addStudentsToAssignment,
@@ -341,4 +387,5 @@ export {
   getAllAssignments,
   addStudentAssignment,
     deleteAssignment,
+    getSubmittedAssignments
 };

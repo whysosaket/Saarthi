@@ -12,6 +12,7 @@ const studentAssignmentSchema = new mongoose.Schema({
     status: {type: String, required: false, default: 'pending'},
     feedback: {type: [String], required: false},
     answer: {type: String, required: true},
+    plagarismChance: {type: Number, required: false},
 });
 
 export default mongoose.model('studentAssignment', studentAssignmentSchema);
