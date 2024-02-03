@@ -1,9 +1,9 @@
 import {motion} from "framer-motion"
-import GlobalContext from "../../context/GlobalContext";
-import {useContext} from "react";
+// import GlobalContext from "../../context/GlobalContext";
+// import {useContext} from "react";
 
 const AssignmentCard = (props: {index: number, assignment: any }) => {
-    const {handleComponentChange } = useContext(GlobalContext);
+    // const {handleComponentChange } = useContext(GlobalContext);
 
     const handleClassroomClick = () => {
         // setActiveClassroom(props.classRoom.classRoomId);
