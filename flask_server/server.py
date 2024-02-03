@@ -13,6 +13,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
+OCR_KEY = os.getenc("OCR_KEY")
 
 app = Flask(__name__)
 
@@ -102,6 +103,61 @@ def check_plag():
     result = {
         "AI_Gen": result,
         "Plagiarised": plagiarism_result[0][0]["score"]
+    }
+
+    return jsonify(result)
+
+# OCR function using Google Cloud Vision API
+def perform_ocr_with_api_key(image_url):
+    # Fetch the image from the URL
+    response = requests.get(image_url)
+    
+    if response.status_code == 200:
+        # Encode the image as base64
+        encoded_image = base64.b64encode(response.content).decode('utf-8')
+
+        # Google Cloud Vision API endpoint
+        endpoint = 'https://vision.googleapis.com/v1/images:annotate?key=' + OCR_KEY
+
+        # Request payload
+        request_data = {
+            'requests': [
+                {
+                    'image': {'content': encoded_image},
+                    'features': [{'type': 'TEXT_DETECTION'}],
+                }
+            ]
+        }
+
+        # Make a POST request to the API
+        response = requests.post(endpoint, json=request_data)
+
+        # Parse the response
+        if response.status_code == 200:
+            result = response.json()
+            if 'textAnnotations' in result['responses'][0]:
+                print("Detected Text:")
+                return result['responses'][0]['textAnnotations'][0]['description']
+            else:
+                print("No text detected.")
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
+            print(response.json())
+    else:
+        print(f"Error fetching image from URL: {response.status_code}")
+
+@app.route('/ocr', methods=['POST'])
+def ocr_endpoint():
+    data = request.get_json()
+
+    # Get the image URL from the request
+    image_url = data.get('image_url', '')
+
+    # Perform OCR on the image
+    ocr_result = perform_ocr_with_api_key(image_url)
+
+    result = {
+        "ocr_result": ocr_result
     }
 
     return jsonify(result)
