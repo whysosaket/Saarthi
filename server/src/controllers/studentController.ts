@@ -46,7 +46,7 @@ const getMyAssignments = async (req: CustomRequest, res: Response) => {
         let classrooms  = await Classroom.find({ studentIds: { $in: [req.user.id] } });
         let assignmentIDs = classrooms.map((classroom) => classroom.assignments).flat();
 
-        const assignments = await Assignment.find({ _id: { $in: assignmentIDs } });
+        const assignments = await Assignment.find({ _id: { $in: assignmentIDs } }).sort({ assignedDate: -1 });
 
         success = true;
         return res.json({ success, assignments });

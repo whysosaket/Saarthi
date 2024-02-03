@@ -158,14 +158,14 @@ const getAssignment = async (req: CustomRequest, res: Response) => {
         }
 
         // check if student is adder to assignment or teacher is the owner of the assignment
-        if (String(assignment.teacherId) !== req.user.id) {
-            let std = await User.findOne({ studentId: req.user.id, assignmentId: data.assignmentId });
-            let tch = await User.findOne({ teacherId: req.user.id, assignmentId: data.assignmentId });
+        // if (String(assignment.teacherId) !== req.user.id) {
+        //     let std = await User.findOne({ studentId: req.user.id, assignmentId: data.assignmentId });
+        //     let tch = await User.findOne({ teacherId: req.user.id, assignmentId: data.assignmentId });
 
-            if (!std && !tch) {
-                return res.status(400).json({ success, error: "You are not the owner of this assignment!" });
-            }
-        }
+        //     if (!std && !tch) {
+        //         return res.status(400).json({ success, error: "You are not the owner of this assignment!" });
+        //     }
+        // }
 
         success = true;
         return res.json({ success, assignment });
@@ -187,7 +187,7 @@ const getAllAssignments = async (req: CustomRequest, res: Response) => {
             return res.status(400).json({ success, error: "User not found!" });
         }
 
-        const assignments = await Assignment.find({ teacherId: req.user.id });
+        const assignments = await Assignment.find({ teacherId: req.user.id }).sort({ assignedDate: -1 });
 
         success = true;
         return res.json({ success, assignments });
@@ -196,4 +196,65 @@ const getAllAssignments = async (req: CustomRequest, res: Response) => {
     }
 }
 
-export { createAssignment, addStudentsToAssignment, getAssignment, getAllAssignments };
+const addStudentAssignment = async (req: CustomRequest, res: Response) => {
+    let success = false;
+    
+    // Saving req data into a variable
+    let data = req.body;
+    
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        // check if assignment exists
+        let assignment = await Assignment.findOne({ assignmentId: data.assignmentId });
+        if (!assignment) {
+            return res.status(400).json({ success, error: "Assignment not found!" });
+        }
+
+        // check if student is added to assignment
+        let classRoomId = assignment.classRoomId;
+        let classRoom = await Classroom.findById(classRoomId);
+        if (classRoom && !classRoom.studentIds.includes(user._id)) {
+            return res.status(400).json({ success, error: "You are not added to this assignment!" });
+        }
+
+        // check if student assignment exists
+        let studentAssignment = await StudentAssignment.findOne({ student: req.user.id, assignment: assignment._id });
+        if (studentAssignment) {
+            return res.status(400).json({ success, error: "Assignment already submitted!" });
+        }
+
+        // check due date
+        if (new Date() > new Date(assignment.dueDate)) {
+            return res.status(400).json({ success, error: "Assignment submission date is over!" });
+        }
+
+        // add student assignment
+        let newStudentAssignment = new StudentAssignment({
+            student: req.user.id,
+            assignment: assignment._id,
+            classRoomId: classRoomId,
+            submission: new Date(),
+            answer: data.answer
+        });
+
+        await newStudentAssignment.save();
+
+        assignment.submissions.push(newStudentAssignment._id);
+        await assignment.save();
+
+        success = true;
+
+        return res.json({ success, info: "Assignment submitted successfully!" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+
+
+export { createAssignment, addStudentsToAssignment, getAssignment, getAllAssignments, addStudentAssignment };

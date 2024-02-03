@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FaBook } from "react-icons/fa";
+import { Link } from "react-router-dom";
 // import GlobalContext from "../../context/GlobalContext";
 // import {useContext} from "react";
 
@@ -12,7 +13,6 @@ const AssignmentCard = (props: { index: number; assignment: any }) => {
   };
 
   let dueDate = new Date(props.assignment.dueDate).toDateString();
-  let isPastDue = new Date(props.assignment.dueDate) < new Date();
 
   return (
     <>
@@ -39,10 +39,10 @@ const AssignmentCard = (props: { index: number; assignment: any }) => {
         <p className="text-white/50 text-center font-semibold">
           {props.assignment.classroomName}
         </p>
-        {!isPastDue && <button className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition flex justify-center items-center  transform hover:-translate-y-0.5">
+        {<Link to={`/submit/${props.assignment.assignmentId}`} className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition flex justify-center items-center  transform hover:-translate-y-0.5">
           <FaBook className="h-3 w-3 mr-2" />
-          Submit
-        </button>}
+          View
+        </Link>}
       </motion.div>
     </>
   );

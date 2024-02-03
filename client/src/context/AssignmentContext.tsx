@@ -72,14 +72,54 @@ const AssignmentState = (props: any) => {
         }
     }
 
+    const getAssignment = async (assignmentID: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/${assignmentID}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+            });
+            const data = await res.json();
+            if (data.success) {
+                return data.assignment;
+            } else {
+                toastMessage(data.error, "error");
+                return {};
+            }
+        } catch (err) {
+            console.log(err);
+            return {};
+        }
+    }
 
-
-
-
-
+    const submitAssignment = async (assignmentId: string, answer: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/addstudentassignment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+                body: JSON.stringify({ assignmentId, answer }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Assignment submitted successfully", "success");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
 
     return (
-        <AssignmentContext.Provider value={{toastMessage, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
+        <AssignmentContext.Provider value={{toastMessage, getAssignment,submitAssignment,  getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
         {props.children}
         </AssignmentContext.Provider>
     )

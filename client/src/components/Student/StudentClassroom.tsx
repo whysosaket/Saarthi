@@ -4,6 +4,7 @@ import GlobalContext from "../../context/GlobalContext";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useEffect, useState } from "react";
 import ClassroomAssignments from "./StudentClassroomAssignments";
+import StudentNotices from "./StudentNotices";
 
 // const clientUrl = import.meta.env.VITE_CLIENT_URL;
 
@@ -81,6 +82,7 @@ const Classroom = () => {
           <ClassroomAssignments classroomID={activeClassroom} />
         </motion.div>
       </div>
+      <StudentNotices classroomID={activeClassroom} />
     </div>
     </>
   );

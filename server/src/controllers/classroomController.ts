@@ -295,7 +295,7 @@ const getClassroomAssignments = async (req: CustomRequest, res: Response) => {
 
         let classroomID = data.classroomID;
         let classroom = await Classroom
-            .findOne({ classRoomId: classroomID })
+            .findOne({ classRoomId: classroomID }).sort({ assignedDate: -1 })
             .populate('assignments');
 
         if (!classroom) {
