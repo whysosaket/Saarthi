@@ -8,6 +8,7 @@ import StudentContext from "../../context/StudentContext";
 import { useNavigate } from "react-router-dom";
 import { FaRegCopy } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
+import { LuDownloadCloud } from "react-icons/lu";
 
 const AssignmentInfo = (props: {assignmentID: string}) => {
 
@@ -109,11 +110,13 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
                 </div>
             </div>
             <div className="flex justify-start">
-                <button onClick={handleDownloadQuestions} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={handleDownloadQuestions} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    <LuDownloadCloud className="my-auto h-5 w-5 mr-2" />
                     Download Questions
                 </button>
-                <button onClick={handleDownloadAnswers} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4">
-                    Download Answers
+                <button onClick={handleDownloadAnswers} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center">
+                    <LuDownloadCloud className="my-auto h-5 w-5 mr-2" />
+                    Answers
                 </button>
             </div>
         </motion.div>
@@ -125,13 +128,13 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
             <div className="text-white text-3xl font-semibold">
                 Manage Assignment
             </div>
-            <div className="text-white text-sm font-extralight mt-6">
-                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded">
-                    <MdDeleteOutline className="inline-block my-auto h-5 w-5 mr-2" />
+            <div className="text-white text-sm font-extralight mt-6 flex">
+                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded flex items-center">
+                    <MdDeleteOutline className=" my-auto h-5 w-5 mr-2" />
                     Delete
                 </button>
-                <button onClick={handleCheckPlagarism} className="bg-yellow-500 hover:bg-yellow-700 text-white cursor-pointer font-bold py-2 px-4 rounded ml-4">
-                    <FaRegCopy className="inline-block my-auto h-5 w-5 mr-2" />
+                <button onClick={handleCheckPlagarism} className="bg-yellow-500 hover:bg-yellow-700 text-white cursor-pointer font-bold py-2 px-4 rounded ml-4 flex items-center">
+                    <FaRegCopy className="my-auto h-5 w-5 mr-2" />
                     Check Plagarism
                 </button>
             </div>

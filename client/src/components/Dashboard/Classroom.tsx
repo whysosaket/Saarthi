@@ -5,6 +5,8 @@ import GlobalContext from "../../context/GlobalContext";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useEffect, useState } from "react";
 import ClassroomAssignments from "./ClassroomAssignments";
+import { LuClipboardCopy, LuDownloadCloud } from "react-icons/lu";
+import { MdDeleteForever } from "react-icons/md";
 
 const clientUrl = import.meta.env.VITE_CLIENT_URL;
 
@@ -79,8 +81,9 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
                 onClick={() => setShowModal(true)}
-              className="bg-red-600 text-white font-semibold hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
+              className="bg-red-600 text-white font-semibold cursor-pointer hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
             >
+              <MdDeleteForever className="h-6 w-6 mr-2" />
               Delete Classroom
             </motion.button>
             <motion.button
@@ -88,9 +91,10 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
               onClick={copyJoinLink}
-              className="bg-green-600 text-white font-semibold hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
+              className="bg-green-600 text-white font-semibold cursor-pointer hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
             >
-                Copy Join Link
+              <LuClipboardCopy className="h-6 w-6 mr-2" />
+                Join Link
             </motion.button>
           </div>
         </motion.div>

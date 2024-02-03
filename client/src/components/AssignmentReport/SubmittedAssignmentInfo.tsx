@@ -113,11 +113,11 @@ const SubmittedAssignmentInfo = (props: { a: any, isStudent: boolean, setCounter
         </div>
         {!props.isStudent && 
         <div className="flex justify-start">
-          <button onClick={downloadAnswer} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex">
+          <button onClick={downloadAnswer} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center">
             <FaCloudDownloadAlt className="mr-2 my-auto" />
             Download Answer
           </button>
-          <button onClick={handleModal} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-4 flex">
+          <button onClick={handleModal} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center">
             <RxUpdate className="mr-2 my-auto" />
             {isModalOpen ? "Close" : "Update Grade"}
           </button>

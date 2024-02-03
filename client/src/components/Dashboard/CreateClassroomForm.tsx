@@ -6,6 +6,7 @@ import {
 import { motion } from "framer-motion";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useRef, useState } from "react";
+import { SiGoogleclassroom } from "react-icons/si";
 
 const CreateClassroomForm = () => {
   const { createClassroom, toastMessage } = useContext(ClassroomContext);
@@ -80,9 +81,10 @@ const CreateClassroomForm = () => {
                 <div className="flex items-center justify-center mt-8">
                   <button
                     onClick={handleCreateClassroom}
-                    className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                    className="text-white py-2 px-4 rounded-xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                   >
-                    Create Classroom
+                    <SiGoogleclassroom className="mr-2" size={20} />
+                    <span className="my-auto">Create Classroom</span>
                   </button>
                 </div>
               </div>

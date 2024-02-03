@@ -1,6 +1,6 @@
 import Mascot from "../assets/mascot.png";
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { MdSubject } from "react-icons/md";
 import { FaChalkboardTeacher, FaCheckCircle } from "react-icons/fa";
@@ -141,6 +141,11 @@ const Join = () => {
 };
 
 const Success = ()=>{
+    const navigate = useNavigate();
+
+    const handleGoToClassroom = () => {
+      navigate(`/`);
+  }
     return (
         <motion.div
         initial={{opacity: 0.4,x: -20}}
@@ -155,8 +160,10 @@ const Success = ()=>{
             <motion.button
             initial={{opacity: 0}}
             animate={{opacity: 1}}
+            transition={{duration: 0.5, delay: 0.2}}
+            onClick={handleGoToClassroom}
             className="bg-blue-500 p-2 rounded-lg font-semibold text-white ml-2 hover:bg-blue-700 hover:shadow-xl">
-                Go to Classroom
+                Go Home
             </motion.button>
         </motion.div>
     )

@@ -31,9 +31,9 @@ const RaiseDispute = (props: { assignmentId: string, setCounter: any }) => {
       </div>
       <input ref={feedbackRef} type="text" className="w-full text-white bg-white/10 text-sm font-extralight my-3 p-4 rounded-lg " placeholder="Write you dispute message here" />
       <div className="flex justify-start">
-      <button onClick={handleSendFeedback} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex cursor-pointer">
+      <button onClick={handleSendFeedback} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center cursor-pointer">
         <MdOutlineFeedback className="mr-2 my-auto" size={20} />
-          Send
+          <span className="my-auto">Send</span>
         </button>
         </div>
     </motion.div>

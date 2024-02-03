@@ -5,6 +5,8 @@ import AssignmentContext from "../../context/AssignmentContext";
 import { storage } from "../../firebase";
 import {ref, uploadBytes} from "firebase/storage";
 import { v4  } from "uuid";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { TiTickOutline } from "react-icons/ti";
 
 const UploadAssignment = (props: {assignmentID: string}) => {
   const {toastMessage, submitAssignment } = useContext(AssignmentContext);
@@ -79,8 +81,9 @@ const UploadAssignment = (props: {assignmentID: string}) => {
               <div className="flex items-center justify-center w-full">
                 <button
                   disabled={isUploaded}
-                  className="text-white py-2 px-4 rounded-xl bg-green-500 hover:bg-green-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 flex items-center rounded-xl bg-green-500 hover:bg-green-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
+                  <TiTickOutline className="mr-2" size={20} />
                   Assignment Uploaded
                 </button>
               </div>
@@ -88,9 +91,10 @@ const UploadAssignment = (props: {assignmentID: string}) => {
               <div className="flex items-center justify-center w-full">
                 <button
                   onClick={handleFileUpload}
-                  className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
-                  Submit Assignment
+                  <FaCloudUploadAlt className="mr-2" size={20} />
+                  Upload Assignment
                 </button>
               </div>
             )

@@ -5,6 +5,8 @@ import {getDownloadURL, ref} from "firebase/storage";
 import { storage } from "../../firebase";
 import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import { TbReportAnalytics } from "react-icons/tb";
 
 const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
 
@@ -72,7 +74,8 @@ const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
                 </div>
             </div>
             <div className="flex justify-start">
-                <button onClick={handleDownloadQuestions} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button onClick={handleDownloadQuestions} className="bg-blue-500 flex items-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <FaCloudDownloadAlt className="mr-2" size={20} />
                     Download Questions
                 </button>
             </div>
@@ -110,7 +113,8 @@ const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
                 track.status === "N/A" ? 
                 null :
                 <div className="flex justify-start mt-6">
-                    <button onClick={handleViewSubmission} className="bg-yellow-500/90 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                    <button onClick={handleViewSubmission} className="bg-yellow-500/90 flex items-center hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                        <TbReportAnalytics className="mr-2" size={20} />
                         Assignment Report
                     </button>
                 </div>
