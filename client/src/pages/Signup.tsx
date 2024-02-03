@@ -4,48 +4,34 @@ import { motion } from "framer-motion";
 import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Atropos } from "atropos/react";
+import GlobalContext from "../context/GlobalContext";
 
 const Signup = () => {
-  // Importing alert context
 
+  const { toastMessage, signup } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   // Creating refs to handle values
-  const usernameref = useRef<HTMLInputElement>(null);
   const passwordref = useRef<HTMLInputElement>(null);
   const nameref = useRef<HTMLInputElement>(null);
   const emailref = useRef<HTMLInputElement>(null);
-  const otpref = useRef<HTMLInputElement>(null);
 
   const handleClick = async () => {
     const name: string = nameref.current?.value || "";
-    const username: string = usernameref.current?.value || "";
     const password: string = passwordref.current?.value || "";
-    const otp: string = otpref.current?.value || "";
     const email: string = emailref.current?.value || "";
     if (
       email == "" ||
-      username == "" ||
       password == "" ||
-      otp == "" ||
       name == ""
     ) {
-      //   updateAlert("Please fill all the fields to continue.","danger");
+      toastMessage("Please fill all the fields to continue.", "danger");
       return;
     }
-    // const response = await signup(name, username, password, otp, email);
-    // if(response){
-    navigate("/login");
-    // }
-  };
-
-  const handleOtp = async () => {
-    const email: string = emailref.current?.value || "";
-    if (email == "") {
-      //   updateAlert("Please Enter an email to get OTP.","danger");
-      return;
+    const response = await signup(name, email, password);
+    if(response){
+      navigate("/login");
     }
-    // sendOtp(email);
   };
 
   return (
@@ -71,7 +57,7 @@ const Signup = () => {
                 </div>
                 <div>
                   <div className="flex -mx-3">
-                    <div className="w-1/2 px-3 mb-5">
+                    <div className="w-full px-3 mb-5">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Name
                       </label>
@@ -84,22 +70,6 @@ const Signup = () => {
                           className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
                           placeholder="John"
                           ref={nameref}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-1/2 px-3 mb-5">
-                      <label htmlFor="" className="text-xs font-semibold px-1">
-                        Username
-                      </label>
-                      <div className="flex">
-                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                          <i className="mdi mdi-account-outline text-gray-400 text-lg" />
-                        </div>
-                        <input
-                          type="text"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
-                          placeholder="johnsmith"
-                          ref={usernameref}
                         />
                       </div>
                     </div>
@@ -137,35 +107,6 @@ const Signup = () => {
                           placeholder="************"
                           ref={passwordref}
                         />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-12">
-                      <label htmlFor="" className="text-xs font-semibold px-1">
-                        Enter OTP
-                      </label>
-                      <div className="flex">
-                        <div className="flex w-full">
-                          <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                            <i className="mdi mdi-email-outline text-gray-400 text-lg" />
-                          </div>
-                          <input
-                            type="otp"
-                            className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
-                            placeholder="Enter OTP"
-                            ref={otpref}
-                          />
-                        </div>
-                        <div className="w-2/3 flex justify-end">
-                          <button
-                            onClick={handleOtp}
-                            className="ml-5 bg-blue-500 text-sm hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
-                          >
-                            Send OTP
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </div>

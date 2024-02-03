@@ -52,7 +52,7 @@ const Hero2 = () => {
           onEnter={() => console.log("Enter")}
           onLeave={() => console.log("Leave")}
           onRotate={(x, y) => console.log("Rotate", x, y)}
-          className="w-fit my-8 px-4 h-96 cursor-pointer"
+          className="w-fit mt-8 px-4 h-96 cursor-pointer"
         >
 <ul className="steps steps-vertical my-8 accent">
           <li className="step step-primary">
@@ -82,6 +82,12 @@ const Hero2 = () => {
           </li>
         </ul>
         </Atropos>
+
+        <Plx parallaxData={rotateParallaxData}
+            className="ml-8 py-3 px-4 gap-x-2 w-1/5 text-md font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          >
+            Register
+          </Plx>
         
       </div>
       <Plx
@@ -89,14 +95,14 @@ const Hero2 = () => {
         className="w-1/2 flex justify-center"
       >
         <Atropos
-          activeOffset={40}
+          activeOffset={70}
           shadowScale={1.05}
           onEnter={() => console.log("Enter")}
           onLeave={() => console.log("Leave")}
           onRotate={(x, y) => console.log("Rotate", x, y)}
           className="mx-auto h-96"
         >
-          <img src={Image} alt="hero2" className="mx-auto h-96" />
+          <img src={Image} alt="hero2" className="mx-auto" />
         </Atropos>
       </Plx>
     </div>

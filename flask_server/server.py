@@ -106,6 +106,7 @@ def check_plag():
     }
 
     return jsonify(result)
+
 # OCR function using Google Cloud Vision API
 def perform_ocr_with_api_key(image_url):
     # Fetch the image from the URL

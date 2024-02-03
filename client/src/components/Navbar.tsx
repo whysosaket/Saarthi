@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import GlobalContext from "../context/GlobalContext";
 
 const Navbar = () => {
 
+  const {isAuthenticated, handleLogout} = useContext(GlobalContext);
   const [top, setTop] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -39,7 +40,7 @@ const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li className="p-4 border-b-2 dark:hover:text-indigo-200 dark:hover:border-indigo-200 border-indigo-500 border-opacity-0 hover:border-opacity-100 hover:text-indigo-500 duration-200 cursor-pointer">
-              <Link to="/profile">Profile</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li className="p-4 border-b-2 dark:hover:text-indigo-200 dark:hover:border-indigo-200 border-indigo-500 border-opacity-0 hover:border-opacity-100 hover:text-indigo-500 duration-200 cursor-pointer">
               <Link to="/about">About</Link>
@@ -48,7 +49,7 @@ const Navbar = () => {
         </nav>
         {/* buttons -*/}
         <div className="w-6/12  md:w-3/12 flex justify-end">
-          {!localStorage.getItem("auth-token")? (
+          {!isAuthenticated? (
             <Link
               to="/login"
               className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
@@ -58,8 +59,8 @@ const Navbar = () => {
           ) : (
             <button
             onClick={()=> {
-              localStorage.removeItem("auth-token");
-              navigate("/welcome");
+              handleLogout();
+              navigate("/");
             }}
             className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
             >

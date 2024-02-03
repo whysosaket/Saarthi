@@ -4,9 +4,11 @@ import {motion} from "framer-motion";
 import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Atropos } from "atropos/react";
+import GlobalContext from "../context/GlobalContext";
 
 const Login = () => {
 
+  const {toastMessage, login} = useContext(GlobalContext);
   const navigate = useNavigate();
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -16,13 +18,13 @@ const Login = () => {
     const username:string= usernameRef.current?.value || "";
     const password:string = passwordRef.current?.value || "";
     if(username==""||password==""){
-    //   updateAlert("Please enter both username and password!");
+      toastMessage("Please fill all the fields to continue.","danger");
       return;
     }
-    // const res = await login(username, password);
-    // if(res){
+    const res = await login(username, password);
+    if(res){
       navigate("/");
-    // }
+    }
   }
 
   return (
@@ -56,16 +58,16 @@ const Login = () => {
                   <div className="flex -mx-3">
                     <div className="w-full px-3 mb-5">
                       <label htmlFor="" className="text-xs font-semibold px-1">
-                        Username
+                        Email
                       </label>
                       <div className="flex">
                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                           <i className="mdi mdi-email-outline text-gray-400 text-lg" />
                         </div>
                         <input
-                          type="text"
+                          type="email"
                           className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
-                          placeholder="johnsmith"
+                          placeholder="johnsmith@email.com"
                           ref={usernameRef}
                         />
                       </div>
@@ -91,7 +93,7 @@ const Login = () => {
                   </div>
                   <div className="flex -mx-3">
                     <div className="w-full px-3 mb-5">
-                      <button onClick={handleLogin} className="block w-full max-w-xs mx-auto bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold">
+                      <button onClick={handleLogin} className="block w-full  max-w-xs mx-auto bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold">
                         LOGIN
                       </button>
                     </div>
