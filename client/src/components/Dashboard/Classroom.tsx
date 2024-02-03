@@ -5,8 +5,10 @@ import GlobalContext from "../../context/GlobalContext";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useEffect, useState } from "react";
 
+const clientUrl = import.meta.env.VITE_CLIENT_URL;
+
 const Classroom = () => {
-  const { activeClassroom, handleComponentChange } = useContext(GlobalContext);
+  const { activeClassroom, handleComponentChange, toastMessage } = useContext(GlobalContext);
   const { getClassroomInfo, deleteClassroom } = useContext(ClassroomContext);
 
   const [showModal, setShowModal] = useState(false);
@@ -40,6 +42,11 @@ const Classroom = () => {
     }
   }
 
+  const copyJoinLink = () => {
+    navigator.clipboard.writeText(`${clientUrl}/join/${activeClassroom}`);
+    toastMessage("Join link copied to clipboard", "success");
+  }
+
   return (
     <>
     {showModal && <DeleteModal
@@ -71,9 +78,18 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
                 onClick={() => setShowModal(true)}
-              className="bg-red-600 text-white hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover"
+              className="bg-red-600 text-white hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
             >
               Delete Classroom
+            </motion.button>
+            <motion.button
+              initial={{ x: -70 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              onClick={copyJoinLink}
+              className="bg-green-600 text-white hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
+            >
+                Copy Join Link
             </motion.button>
           </div>
         </motion.div>

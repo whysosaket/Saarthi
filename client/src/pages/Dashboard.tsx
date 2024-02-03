@@ -8,7 +8,7 @@ import GlobalContext from "../context/GlobalContext";
 import Classroom from "../components/Dashboard/Classroom";
 
 const Dashboard = () => {
-  const { activeComponent, handleComponentChange } = useContext(GlobalContext);
+  const { activeComponent } = useContext(GlobalContext);
 
   useEffect(() => {
     // setting scroll to top

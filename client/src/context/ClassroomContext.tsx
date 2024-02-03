@@ -159,11 +159,34 @@ const ClassroomState = (props: any) => {
             }
         }
 
+        const joinClassroom = async (classroomID: string) => {
+            try {
+                const res = await fetch(`${url}/api/classroom/join/${classroomID}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token") || ""
+                    }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toastMessage("Joined classroom successfully", "success");
+                    return true;
+                } else {
+                    toastMessage(data.error, "error");
+                    return false;
+                }
+            } catch (err) {
+                console.log(err);
+                return false;
+            }
+        }
+
 
 
 
     return (
-        <ClassroomContext.Provider value={{toastMessage, createClassroom, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom}}>
+        <ClassroomContext.Provider value={{toastMessage, createClassroom, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom, joinClassroom}}>
         {props.children}
         </ClassroomContext.Provider>
     )

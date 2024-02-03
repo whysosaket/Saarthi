@@ -14,6 +14,7 @@ import { GlobalState } from "./context/GlobalContext";
 import Dashboard from "./pages/Dashboard";
 import { ClassroomState } from "./context/ClassroomContext";
 import { AssignmentState } from "./context/AssignmentContext";
+import Join from "./pages/Join";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/join">
+              <Route path="" element={<Join />} />
+              <Route path=":id" element={<Join />} />
+            </Route>
             <Route path="*" element={<_404 />} />
           </Routes>
           <Footer />
