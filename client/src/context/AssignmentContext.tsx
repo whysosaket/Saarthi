@@ -182,8 +182,56 @@ const AssignmentState = (props: any) => {
         }
     }
 
+    const updateGrade = async (assignmentID: string, grade: number) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/grade/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+                body: JSON.stringify({ assignmentID, grade }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Grade updated successfully", "success");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+    const sendFeedback = async (assignmentID: string, feedback: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/feedback/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+                body: JSON.stringify({ assignmentID, feedback }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Feedback sent successfully", "success");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
     return (
-        <AssignmentContext.Provider value={{toastMessage,deleteAssignment, getSubmittedAssignmentReport, getAssignment,submitAssignment, getSubmittedAssignments, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
+        <AssignmentContext.Provider value={{toastMessage,deleteAssignment, sendFeedback, updateGrade, getSubmittedAssignmentReport, getAssignment,submitAssignment, getSubmittedAssignments, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
         {props.children}
         </AssignmentContext.Provider>
     )

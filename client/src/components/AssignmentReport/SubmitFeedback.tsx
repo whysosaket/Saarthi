@@ -1,8 +1,25 @@
 import { motion } from "framer-motion";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { MdOutlineFeedback } from "react-icons/md";
+import AssignmentContext from "../../context/AssignmentContext";
+import { useContext, useRef } from "react";
 
-const SubmitFeedback = (props: { assignmentId: string }) => {
+const SubmitFeedback = (props: { assignmentId: string, setCounter: any }) => {
+  const { sendFeedback } = useContext(AssignmentContext);
+  const feedbackRef = useRef<HTMLInputElement>(null);
+
+  const handleSendFeedback = async () => {
+    const feedback = feedbackRef.current?.value || "";
+    if (feedback === "") {
+      return;
+    }
+    const response = await sendFeedback(props.assignmentId, feedback);
+    if (response) {
+      props.setCounter((prev: number) => prev + 1);
+      feedbackRef.current!.value = "";
+    }
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 300 }}
@@ -13,9 +30,9 @@ const SubmitFeedback = (props: { assignmentId: string }) => {
       <div className="text-white text-2xl font-semibold">
         {/* {assignment.assignmentName} */} Send Feedback
       </div>
-      <input type="text" className="w-full h-20 text-white bg-white/10 text-sm font-extralight my-3 p-4 rounded-lg " placeholder="Enter your feedback" />
+      <input ref={feedbackRef} type="text" className="w-full h-20 text-white bg-white/10 text-sm font-extralight my-3 p-4 rounded-lg " placeholder="Enter your feedback" />
       <div className="flex justify-start my-4">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex cursor-pointer">
+      <button onClick={handleSendFeedback} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex cursor-pointer">
         <MdOutlineFeedback className="mr-2 my-auto" size={20} />
           Send Feedback
         </button>

@@ -304,7 +304,7 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
     }
 
     // check if teacher is the owner of the assignment
-    if (assignment&&String(assignment.teacherId) !== req.user.id) {
+    if (assignment && String(assignment.teacherId) !== req.user.id) {
       return res
         .status(400)
         .json({ success, error: "You are not the owner of this assignment!" });
@@ -317,7 +317,7 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
 
     if (classroom) {
       classroom.assignments = classroom.assignments.filter(
-        (id) => String(id) !== String(assignment&&assignment._id)
+        (id) => String(id) !== String(assignment && assignment._id)
       );
       await classroom.save();
     }
@@ -335,50 +335,59 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
 };
 
 const getSubmittedAssignments = async (req: CustomRequest, res: Response) => {
-    let success = false;
-    
-    // Saving req data into a variable
-    let data = req.params;
-    
-    try {
-        // check if user exists
-        let user = await User.findById(req.user.id);
-        if (!user) {
-            return res.status(400).json({ success, error: "User not found!" });
-        }
+  let success = false;
 
-        // check if assignment exists
-        let assignment = await Assignment
-            .findOne({ assignmentId: data.assignmentID })
-            .populate('submissions');
+  // Saving req data into a variable
+  let data = req.params;
 
-        if (!assignment) {
-            return res.status(400).json({ success, error: "Assignment not found!" });
-        }
-
-        // check if teacher is the owner of the assignment
-        if (String(assignment.teacherId) !== req.user.id) {
-            return res.status(400).json({ success, error: "You are not the owner of this assignment!" });
-        }
-
-        // add name of students to submissions
-        // ignore all ts errors
-
-        const sendNames = [];
-       
-        for (let i = 0; i < assignment.submissions.length; i++) {
-            // @ts-ignore
-            let student = await User.findById(assignment.submissions[i].student).select('name');
-            // @ts-ignore
-            sendNames.push({ name: student.name, submission: assignment.submissions[i] });
-        }
-
-        success = true;
-        return res.json({ success, submissions: sendNames });
-    } catch (error) {
-        return res.status(500).json({ success, error: "Internal Server Error!" });
+  try {
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
     }
-}
+
+    // check if assignment exists
+    let assignment = await Assignment.findOne({
+      assignmentId: data.assignmentID,
+    }).populate("submissions");
+
+    if (!assignment) {
+      return res.status(400).json({ success, error: "Assignment not found!" });
+    }
+
+    // check if teacher is the owner of the assignment
+    if (String(assignment.teacherId) !== req.user.id) {
+      return res
+        .status(400)
+        .json({ success, error: "You are not the owner of this assignment!" });
+    }
+
+    // add name of students to submissions
+    // ignore all ts errors
+
+    const sendNames = [];
+
+    for (let i = 0; i < assignment.submissions.length; i++) {
+      
+      let student = await User.findById(
+        // @ts-ignore
+        assignment.submissions[i].student
+      ).select("name");
+      
+      sendNames.push({
+        // @ts-ignore
+        name: student.name,
+        submission: assignment.submissions[i],
+      });
+    }
+
+    success = true;
+    return res.json({ success, submissions: sendNames });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+};
 
 const getAssignmentReport = async (req: CustomRequest, res: Response) => {
   let success = false;
@@ -394,10 +403,14 @@ const getAssignmentReport = async (req: CustomRequest, res: Response) => {
     }
 
     // check if assignment exists
-    let submittedAssignment = await StudentAssignment.findById(data.assignmentID);
+    let submittedAssignment = await StudentAssignment.findById(
+      data.assignmentID
+    );
 
     if (!submittedAssignment) {
-      return res.status(400).json({ success, error: "Submitted Assignment not found!" });
+      return res
+        .status(400)
+        .json({ success, error: "Submitted Assignment not found!" });
     }
 
     let assignment = await Assignment.findById(submittedAssignment.assignment);
@@ -405,20 +418,122 @@ const getAssignmentReport = async (req: CustomRequest, res: Response) => {
       return res.status(400).json({ success, error: "Assignment not found!" });
     }
 
-    let student = await User.findById(submittedAssignment.student, "name email");
+    let student = await User.findById(
+      submittedAssignment.student,
+      "name email"
+    );
     if (!student) {
       return res.status(400).json({ success, error: "Student not found!" });
     }
-
 
     success = true;
     return res.json({ success, submittedAssignment, student, assignment });
   } catch (error) {
     return res.status(500).json({ success, error: "Internal Server Error!" });
   }
+};
+
+const updateGrade = async (req: CustomRequest, res: Response) => {
+  let success = false;
+
+  // Saving req data into a variable
+  let data = req.body;
+
+  try {
+    if(!data.grade){
+      return res.status(400).json({ success, error: "Grade is required!" });
+    }
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    // check if assignment exists
+    let submittedAssignment = await StudentAssignment.findById(
+      data.assignmentID
+    );
+
+    if (!submittedAssignment) {
+      return res
+        .status(400)
+        .json({ success, error: "Submitted Assignment not found!" });
+    }
+
+    let assignment = await Assignment.findById(submittedAssignment.assignment);
+    if (!assignment) {
+      return res.status(400).json({ success, error: "Assignment not found!" });
+    }
+
+    // check if teacher is the owner of the assignment
+    if (String(assignment.teacherId) !== req.user.id) {
+      return res
+        .status(400)
+        .json({ success, error: "You are not the owner of this assignment!" });
+    }
+
+    // update grade
+    submittedAssignment.grade = data.grade;
+    submittedAssignment.status = "graded";
+    await submittedAssignment.save();
+
+    success = true;
+    return res.json({ success, info: "Grade updated!" });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+};
+
+const sendFeedback = async (req: CustomRequest, res: Response) => {
+  let success = false;
+
+  // Saving req data into a variable
+  let data = req.body;
+
+  try {
+    if(!data.feedback){
+      return res.status(400).json({ success, error: "Feedback is required!" });
+    }
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    // check if assignment exists
+    let submittedAssignment = await StudentAssignment.findById(
+      data.assignmentID
+    );
+
+    if (!submittedAssignment) {
+      return res
+        .status(400)
+        .json({ success, error: "Submitted Assignment not found!" });
+    }
+
+    let assignment = await Assignment.findById(submittedAssignment.assignment);
+    if (!assignment) {
+      return res.status(400).json({ success, error: "Assignment not found!" });
+    }
+
+    // check if teacher is the owner of the assignment
+    if (String(assignment.teacherId) !== req.user.id) {
+      return res
+        .status(400)
+        .json({ success, error: "You are not the owner of this assignment!" });
+    }
+
+    // update feedback
+    // @ts-ignore
+    submittedAssignment.feedback.push(data.feedback);
+    await submittedAssignment.save();
+
+    success = true;
+    return res.json({ success, info: "Feedback updated!" });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
 }
-
-
 
 export {
   createAssignment,
@@ -426,7 +541,9 @@ export {
   getAssignment,
   getAllAssignments,
   addStudentAssignment,
-    deleteAssignment,
-    getSubmittedAssignments,
-    getAssignmentReport
+  deleteAssignment,
+  getSubmittedAssignments,
+  getAssignmentReport,
+  updateGrade,
+  sendFeedback
 };

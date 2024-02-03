@@ -11,7 +11,7 @@ const Feedbacks = (props: {feedbacks: any}) => {
         <div className="text-white text-3xl font-semibold">
           {/* {assignment.assignmentName} */} Feedbacks
         </div>
-        <div className="text-white  text-sm font-extralight my-3 p-4 rounded-lg max-h-48 overflow-y-scroll">
+        <div className="text-white  text-sm font-extralight my-3 p-4 rounded-lg h-52 overflow-y-scroll">
             {
                 props.feedbacks.map((feedback: any, index: number) => {
                     return (

@@ -15,10 +15,11 @@ const AssignmentReport = () => {
     const [feedbacks, setFeedbacks] = useState([]);
     const [response, setResponse] = useState<any>(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
         handleGetSubmittedAssignmentReport();
-    }, []);
+    }, [counter]);
 
     const handleGetSubmittedAssignmentReport = async () => {
         const response = await getSubmittedAssignmentReport(assignmentID);
@@ -49,7 +50,7 @@ const AssignmentReport = () => {
         </div>
         <div className="w-1/2">
             <Feedbacks feedbacks={feedbacks} />
-            <SubmitFeedback assignmentId={assignmentID} />
+            <SubmitFeedback assignmentId={assignmentID} setCounter={setCounter} />
         </div>
     </div>
 

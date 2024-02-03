@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useContext, useRef } from "react";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { RxUpdate } from "react-icons/rx";
 import { storage } from "../../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
+import AssignmentContext from "../../context/AssignmentContext";
 
 const SubmittedAssignmentInfo = (props: { a: any }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const {updateGrade, toastMessage} = useContext(AssignmentContext);
+    const [hasUpdatedGrade, setHasUpdatedGrade] = useState(false);
+    const [gradeValue, setGradeValue] = useState("");
+    const gradeRef = useRef<HTMLInputElement>(null);
 
     const handleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -17,6 +22,22 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
         const url = await getDownloadURL(ref(storage, props.a.submittedAssignment.answer));
         window.open(url, "_blank");
     }
+
+    const handleUpdateGrade = async () => {
+        const grade = gradeRef.current?.value || "";
+        if(grade === ""){
+            toastMessage("Please enter a grade", "error");
+            return;
+        }
+        const response = await updateGrade(props.a.submittedAssignment._id, grade);
+        if(response){
+            setHasUpdatedGrade(true);
+            setGradeValue(grade);
+            handleModal();
+        }
+    }
+
+    
   return (
     <>
       <motion.div
@@ -57,7 +78,9 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
           <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">Grade:</span>
 
-            {props.a.submittedAssignment.grade}
+            {hasUpdatedGrade ? gradeValue :
+            props.a.submittedAssignment.grade
+            }
           </div>
           <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">Dispute:</span>
@@ -97,10 +120,10 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
           className="appearance-none border pl-6 bg-white/10 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-2 text-gray-200 leading-tight focus:outline-none focus:shadow-outline mt-4"
           type="text"
           placeholder="Grade"
-          // ref={nameRef}
+          ref={gradeRef}
         />
         <div className="flex justify-start mt-4">
-          <button className="bg-gray-700 hover:bg-gray-900 bg-opacity-60 text-white font-bold py-2 px-4 rounded ml-4">
+          <button onClick={handleUpdateGrade} className="bg-gray-700 hover:bg-gray-900 bg-opacity-60 text-white font-bold py-2 px-4 rounded ml-4">
             Update Grade
           </button>
         </div>

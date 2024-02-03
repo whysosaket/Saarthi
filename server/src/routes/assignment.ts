@@ -1,5 +1,5 @@
 import {  Response, Router } from "express";
-import { createAssignment, addStudentsToAssignment, getAssignment, getAllAssignments, addStudentAssignment, deleteAssignment, getSubmittedAssignments, getAssignmentReport } from "../controllers/assignmentController";
+import { createAssignment, addStudentsToAssignment, getAssignment,sendFeedback, getAllAssignments, updateGrade, addStudentAssignment, deleteAssignment, getSubmittedAssignments, getAssignmentReport } from "../controllers/assignmentController";
 import fetchuser from "../middleware/fetchuser";
 
 export default (router: Router) => {
@@ -11,4 +11,6 @@ export default (router: Router) => {
     router.route("/api/assignment/delete/:assignmentID").delete(fetchuser, (req: any, res: Response)=>deleteAssignment(req, res));
     router.route("/api/assignment/submitted/:assignmentID").get(fetchuser, (req: any, res: Response)=>getSubmittedAssignments(req, res));
     router.route("/api/assignment/report/:assignmentID").get(fetchuser, (req: any, res: Response)=>getAssignmentReport(req, res));
+    router.route("/api/assignment/grade").post(fetchuser, (req: any, res: Response)=>updateGrade(req, res));
+    router.route("/api/assignment/feedback").post(fetchuser, (req: any, res: Response)=>sendFeedback(req, res));
 }
