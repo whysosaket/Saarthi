@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import CustomRequest from "../types/CustomRequest";
 import Classroom from "../models/Classroom";
 import Assignment from "../models/Assignment";
+import StudentAssignment from "../models/StudentAssignment";
 
 const getJoinedClassrooms = async (req: CustomRequest, res: Response) => {
     let success = false;
@@ -74,10 +75,33 @@ const getStudent = async (req: CustomRequest, res: Response) => {
     }
 }
 
+const getSubmission = async (req: CustomRequest, res: Response) => {
+    let success = false;
+
+    let { assignmentID } = req.params;
+    
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        let assignment = await StudentAssignment.findOne({ assignment: assignmentID, student: req.user.id });
+        if (!assignment) {
+            return res.status(200).json({ success: true, assignment: {status: "N/A"} });
+        }
+
+        success = true;
+        return res.json({ success, assignment });
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+        
 
 
 
-
-export { getJoinedClassrooms, getMyAssignments, getStudent };
+export { getJoinedClassrooms, getMyAssignments, getStudent, getSubmission };
 
         

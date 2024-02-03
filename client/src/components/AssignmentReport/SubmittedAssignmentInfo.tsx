@@ -6,12 +6,10 @@ import { storage } from "../../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 import AssignmentContext from "../../context/AssignmentContext";
 
-const SubmittedAssignmentInfo = (props: { a: any }) => {
+const SubmittedAssignmentInfo = (props: { a: any, isStudent: boolean, setCounter: any }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {updateGrade, toastMessage} = useContext(AssignmentContext);
-    const [hasUpdatedGrade, setHasUpdatedGrade] = useState(false);
-    const [gradeValue, setGradeValue] = useState("");
     const gradeRef = useRef<HTMLInputElement>(null);
 
     const handleModal = () => {
@@ -31,9 +29,8 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
         }
         const response = await updateGrade(props.a.submittedAssignment._id, grade);
         if(response){
-            setHasUpdatedGrade(true);
-            setGradeValue(grade);
-            handleModal();
+            props.setCounter((prev: number) => prev + 1);
+            setIsModalOpen(false);
         }
     }
 
@@ -78,7 +75,7 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
           <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">Grade:</span>
 
-            {hasUpdatedGrade ? gradeValue :
+            {
             props.a.submittedAssignment.grade&&props.a.submittedAssignment.grade.toFixed(2)
             }
           </div>
@@ -114,6 +111,7 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
             {props.a.submittedAssignment.aiProbability&&props.a.submittedAssignment.aiProbability.toFixed(2)}
           </div>
         </div>
+        {!props.isStudent && 
         <div className="flex justify-start">
           <button onClick={downloadAnswer} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex">
             <FaCloudDownloadAlt className="mr-2 my-auto" />
@@ -123,7 +121,7 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
             <RxUpdate className="mr-2 my-auto" />
             {isModalOpen ? "Close" : "Update Grade"}
           </button>
-        </div>
+        </div>}
       </motion.div>
       {isModalOpen &&
       <motion.div

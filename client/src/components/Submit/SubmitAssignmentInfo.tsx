@@ -1,13 +1,18 @@
 import AssignmentContext from "../../context/AssignmentContext"
+import GlobalContext from "../../context/GlobalContext";
 import { useEffect, useState, useContext } from "react"
 import {getDownloadURL, ref} from "firebase/storage";
 import { storage } from "../../firebase";
 import {motion} from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
 
-    const {getAssignment} = useContext(AssignmentContext);
+    const {getAssignment, getSubmissions} = useContext(AssignmentContext);
+    const {handleComponentChange} = useContext(GlobalContext);
     const [assignment, setAssignment] = useState({assignmentName: "", description: "", dueDate: "", assignedDate: "", questions: ""});
+    const [track, setTrack] = useState({status: "", _id: "", submittedDate: ""});
+    const navigate = useNavigate();
 
     useEffect(() => {
         handleGetAssignment();
@@ -16,14 +21,26 @@ const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
     const handleGetAssignment = async () => {
         const response = await getAssignment(props.assignmentID);
         if(response){
-            console.log(response);
             setAssignment(response);
+            handleGetSubmissions(response._id);
         }
     }
 
     const handleDownloadQuestions = async () => {
         const url = await getDownloadURL(ref(storage, assignment.questions));
         window.open(url);
+    }
+
+    const handleGetSubmissions = async (id: string) => {
+        const response = await getSubmissions(id);
+        if(response){
+            setTrack(response);
+        }
+    }
+
+    const handleViewSubmission = () => {
+        handleComponentChange("assignmentReport");
+        navigate(`/studentassignmentreport/${track._id}`);
     }
 
   return (
@@ -68,9 +85,36 @@ const SubmitAssignmentInfo = (props: {assignmentID: string}) => {
             <div className="text-white text-3xl font-semibold">
                 Track Assignment
             </div>
-            <div className="text-white text-sm font-extralight mt-6">
-                {assignment.questions}
-            </div>
+            {
+                track.status === "N/A" ? 
+                <div className="text-lg font-semibold text-blue-500 mt-6">
+                    Assignment Not Submitted
+                </div> :
+                <div className="text-white text-md font-bold mt-6">
+                    <span className="text-lg font-semibold text-blue-500" >Status: </span>
+                    {track.status}
+                </div> 
+            
+            }
+            {
+                track.status === "N/A" ? 
+                null :
+                <div className="text-white text-sm font-extralight mt-6">
+                    <span className="font-semibold mr-3">
+                        Date Submitted:
+                    </span>
+                    {new Date(track.submittedDate).toDateString()}
+                </div>
+            }
+            {
+                track.status === "N/A" ? 
+                null :
+                <div className="flex justify-start mt-6">
+                    <button onClick={handleViewSubmission} className="bg-yellow-500/90 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
+                        Assignment Report
+                    </button>
+                </div>
+            }
         </motion.div>
     </div>
   )

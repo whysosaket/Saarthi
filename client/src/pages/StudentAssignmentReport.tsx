@@ -4,13 +4,13 @@ import AssignmentContext from "../context/AssignmentContext";
 import StudentContext from "../context/StudentContext";
 import SubmittedAssignmentInfo from "../components/AssignmentReport/SubmittedAssignmentInfo";
 import Feedbacks from "../components/AssignmentReport/Feedbacks";
-import SubmitFeedback from "../components/AssignmentReport/SubmitFeedback";
 import {motion} from "framer-motion";
 import { storage } from "../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
+import RaiseDispute from "../components/AssignmentReport/RaiseDispute";
 
 
-const AssignmentReport = () => {
+const StudentAssignmentReport = () => {
   const location = useLocation();
     let assignmentID = location.pathname.split("/")[2];
 
@@ -56,7 +56,7 @@ const AssignmentReport = () => {
   return (
     <>
     {isLoaded ?
-    <div className="h-screen w-full -mt-8">
+    <div className="h-screen w-full">
       <motion.h1
       initial={{y: -100}}
         animate={{y: 0}}
@@ -67,11 +67,11 @@ const AssignmentReport = () => {
       </motion.h1>
     <div className="w-full flex justify-center my-8">
         <div className="w-1/2">
-            <SubmittedAssignmentInfo a={response} isStudent={false} setCounter={setCounter} />
+            <SubmittedAssignmentInfo a={response} isStudent={true} setCounter={setCounter} />
         </div>
         <div className="w-1/2">
             <Feedbacks feedbacks={feedbacks} />
-            <SubmitFeedback assignmentId={assignmentID} setCounter={setCounter} />
+            <RaiseDispute assignmentId={assignmentID} setCounter={setCounter} />
         </div>
     </div>
 
@@ -80,4 +80,4 @@ const AssignmentReport = () => {
   );
 };
 
-export default AssignmentReport;
+export default StudentAssignmentReport;

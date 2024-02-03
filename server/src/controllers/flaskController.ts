@@ -52,8 +52,6 @@ const getMarks = async (req: Request, res: Response) => {
         let assignment = await StudentAssignment.findOne({assignment: assignmentID, student: studentID});
         if(!assignment) return res.status(400).json({error: "Student not found"});
 
-        console.log(assignmentID, studentID, studentAnswer, correctAnswer);
-
         // if the student has already been graded, return error
         // @ts-ignore
         if(assignment.grade > 0) return res.status(200).json({success: true});

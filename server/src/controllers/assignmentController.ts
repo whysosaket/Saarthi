@@ -477,6 +477,9 @@ const updateGrade = async (req: CustomRequest, res: Response) => {
     // update grade
     submittedAssignment.grade = data.grade;
     submittedAssignment.status = "graded";
+    // remove dispute
+    submittedAssignment.dispute = false;
+    submittedAssignment.disputeMessage = "";
     await submittedAssignment.save();
 
     success = true;
@@ -537,6 +540,51 @@ const sendFeedback = async (req: CustomRequest, res: Response) => {
   }
 }
 
+const raiseDispute = async (req: CustomRequest, res: Response) => {
+
+  let success = false;
+  try {
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    let data = req.body;
+    let submittedAssignment = await StudentAssignment.findById(data.assignmentID);
+
+    if (!submittedAssignment) {
+      return res
+        .status(400)
+        .json({ success, error: "Submitted Assignment not found!" });
+    }
+
+    let assignment = await Assignment.findById(submittedAssignment.assignment);
+    if (!assignment) {
+      return res.status(400).json({ success, error: "Assignment not found!" });
+    }
+
+    // check if user is the owner of the submitted assignment
+    if (String(submittedAssignment.student) !== req.user.id) {
+      return res
+        .status(400)
+        .json({ success, error: "You are not the owner of this assignment!" });
+    }
+
+    // raise dispute
+    submittedAssignment.dispute = true;
+    submittedAssignment.disputeMessage = data.message;
+    await submittedAssignment.save();
+
+    success = true;
+    return res.json({ success, info: "Dispute raised!" });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+}
+    
+
+
 export {
   createAssignment,
   addStudentsToAssignment,
@@ -547,5 +595,6 @@ export {
   getSubmittedAssignments,
   getAssignmentReport,
   updateGrade,
-  sendFeedback
+  sendFeedback,
+  raiseDispute
 };

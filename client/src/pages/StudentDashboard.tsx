@@ -6,6 +6,7 @@ import Classrooms from '../components/Student/StudentClassrooms'
 import Assignments from '../components/Student/StudentAssignments'
 import Classroom from '../components/Student/StudentClassroom'
 import StudentViewAssignment from '../components/Student/StudentViewAssignment'
+import StudentAssignmentReport from './StudentAssignmentReport'
 
 
 const StudentDashboard = () => {
@@ -19,12 +20,10 @@ const StudentDashboard = () => {
           {/* Content */}
 
             {activeComponent === "classrooms" && <Classrooms />}
-            {/* {activeComponent === "createClassrooms" && <CreateClassroom />} */}
             {activeComponent === "assignments" && <Assignments />}
             {activeComponent === "classroom" && <Classroom />}
             {activeComponent === "viewAssignment" && <StudentViewAssignment />}
-
-            {/* {activeComponent === "createAssignments" && <CreateAssignment />} */}
+            {activeComponent === "assignmentReport" && <StudentAssignmentReport />}
 
         </div>
       </div>
