@@ -13,6 +13,9 @@ const AssignmentState = (props: any) => {
         else toast.info(message);
     };
 
+    const [questionLink, setQuestionLink] = useState("");
+    const [answerLink, setAnswerLink] = useState("");
+
     useEffect(() => {
      
     },[]);
@@ -39,12 +42,44 @@ const AssignmentState = (props: any) => {
         }
     }
 
+    const handlePostUpload = (question: string, answer: string) => {
+        setQuestionLink(question);
+        setAnswerLink(answer);
+    }
+
+    const createAssignment = async (name: string, classroom: string, description: string, dueDate: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/create`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+                body: JSON.stringify({ assignmentName: name, classroomID: classroom, description, dueDate, questions: questionLink, answer: answerLink }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("Assignment created successfully", "success");
+                handlePostUpload("", "");
+                return true;
+            } else {
+                toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+
+
 
 
 
 
     return (
-        <AssignmentContext.Provider value={{toastMessage, getAllAssignments}}>
+        <AssignmentContext.Provider value={{toastMessage, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
         {props.children}
         </AssignmentContext.Provider>
     )

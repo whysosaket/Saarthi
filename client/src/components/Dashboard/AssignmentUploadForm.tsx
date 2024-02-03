@@ -1,18 +1,19 @@
 import { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import { FaFolder } from "react-icons/fa";
-import GlobalContext from "../../context/GlobalContext";
+import AssignmentContext from "../../context/AssignmentContext";
 import { storage } from "../../firebase";
 import {ref, uploadBytes} from "firebase/storage";
 import { v4  } from "uuid";
 
 const AssignmentUploadForm = () => {
-  const {toastMessage} = useContext(GlobalContext);
+  const {toastMessage, handlePostUpload} = useContext(AssignmentContext);
   const [questionFileName, setQuestionFileName] = useState("");
   const [answerFileName, setAnswerFileName] = useState("");
 
   const [questionFile, setQuestionFile] = useState<File | null>(null);
-    const [answerFile, setAnswerFile] = useState<File | null>(null);
+  const [answerFile, setAnswerFile] = useState<File | null>(null);
+  const [isUploaded, setIsUploaded] = useState(false);
 
   const handleFileChange = (event: any, type: any) => {
     const file = event.target.files[0];
@@ -24,7 +25,7 @@ const AssignmentUploadForm = () => {
     type === "question" ? setQuestionFile(file) : setAnswerFile(file);
   };
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async () => {
     if (questionFileName === "" || answerFileName === "") {
         toastMessage("Please select both files", "error");
       return;
@@ -44,18 +45,26 @@ const AssignmentUploadForm = () => {
     const questionRef = ref(storage, `questions/${finalQuestionName}`);
     const answerRef = ref(storage, `answers/${finalAnswerName}`);
 
-    uploadBytes(questionRef, questionFile).then((snapshot: any) => {
-        let url = import.meta.env.VITE_FIREBASE_REF;
-        url  += snapshot.metadata.fullPath.replaceAll("/", "%2F");
-        console.log(url);
-    });
+    const questionUploadTask = await uploadBytes(questionRef, questionFile);
+    const answerUploadTask = await uploadBytes(answerRef, answerFile);
 
-    uploadBytes(answerRef, answerFile).then((snapshot: any) => {
-        let url = import.meta.env.VITE_FIREBASE_REF;
-        url  += snapshot.metadata.fullPath.replaceAll("/", "%2F");
-        console.log(url);
-    });
+    let questionUrl = import.meta.env.VITE_FIREBASE_REF;
+    questionUrl += questionUploadTask.metadata.fullPath.replace(/\//g, "%2F");
+    let answerUrl = import.meta.env.VITE_FIREBASE_REF;
+    answerUrl += answerUploadTask.metadata.fullPath.replace(/\//g, "%2F");
+
+    handlePostUpload(questionUrl, answerUrl);
+    setIsUploaded(true);
   };
+
+  const clearSelection = () => {
+    setQuestionFileName("");
+    setAnswerFileName("");
+    setQuestionFile(null);
+    setAnswerFile(null);
+    setIsUploaded(false);
+    handlePostUpload("", "");
+  }
 
   return (
     <>
@@ -108,11 +117,27 @@ const AssignmentUploadForm = () => {
               <FaFolder className="z-10 w-8 h-8 text-blue-400" />
             </label>
           </div>
-          <button
-          onClick={handleFileUpload}
-          className="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-            Upload
-          </button>
+          {
+            isUploaded ? (
+              <div className="flex items-center justify-center w-full">
+                <button
+                  onClick={clearSelection}
+                  className="text-white py-2 px-4 rounded-xl bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                >
+                  Clear Selection
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full">
+                <button
+                  onClick={handleFileUpload}
+                  className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                >
+                  Upload Files
+                </button>
+              </div>
+            )
+          }
         </div>
       </motion.div>
     </>

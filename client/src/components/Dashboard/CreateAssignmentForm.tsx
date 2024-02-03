@@ -6,10 +6,14 @@ import {
 } from "react-icons/md";
 import { motion } from "framer-motion";
 import ClassroomContext from "../../context/ClassroomContext";
+import AssignmentContext from "../../context/AssignmentContext";
+import GlobalContext from "../../context/GlobalContext";
 import { useContext, useEffect, useRef, useState } from "react";
 
 const CreateAssignmentForm = () => {
-  const { getAllClassrooms } = useContext(ClassroomContext);
+  const { handleComponentChange } = useContext(GlobalContext);
+  const { getAllClassrooms, toastMessage } = useContext(ClassroomContext);
+  const { createAssignment, questionLink, answerLink } = useContext(AssignmentContext);
   const nameRef = useRef<HTMLInputElement>(null);
   const classroomRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
@@ -28,14 +32,33 @@ const CreateAssignmentForm = () => {
     const dueDate: string = dueDateRef.current?.value || "";
     console.log(name, classroom, description, dueDate);
     if (name == "" || classroom == "" || description == "" || dueDate == "") {
+      toastMessage("Please fill all the fields to continue.", "error");
       return;
     }
 
-    console.log(name, classroom, description, dueDate);
-    // const response = await createClassroom(name, classroom, description);
-    // if (response) {
+    if (questionLink == "" || answerLink == "") {
+      toastMessage("Please upload question and answer files", "error");
+      return;
+    }
 
-    // }
+    // check if due date is in future
+    const dueDateObj = new Date(dueDate);
+    const currentDate = new Date();
+    if (dueDateObj < currentDate) {
+      toastMessage("Due date should be in future", "error");
+      return;
+    }
+
+    console.log(name, classroom, description, dueDate, questionLink, answerLink);
+    const response = await createAssignment(
+      name,
+      classroom,
+      description,
+      dueDate
+    );
+    if (response) {
+      handleComponentChange("assignments");
+    }
   };
 
   useEffect(() => {
