@@ -287,6 +287,29 @@ const AssignmentState = (props: any) => {
     }
   }
 
+  const getAIfeedback = async (assignmentID: string, answer: string) => {
+    try {
+      const res = await fetch(`${url}/api/flask/getaifeedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("auth-token") || "",
+        },
+        body: JSON.stringify({ assignmentID, answer })
+      });
+      const data = await res.json();
+      if (data.success) {
+        toastMessage("AI feedback received successfully", "success");
+        return true;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
 
   return (
     <AssignmentContext.Provider
@@ -305,7 +328,8 @@ const AssignmentState = (props: any) => {
         answerLink,
         handlePostUpload,
         createAssignment,
-        raiseDispute
+        raiseDispute,
+        getAIfeedback
       }}
     >
       {props.children}

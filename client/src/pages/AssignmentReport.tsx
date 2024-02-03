@@ -71,7 +71,7 @@ const AssignmentReport = () => {
         </div>
         <div className="w-1/2">
             <Feedbacks feedbacks={feedbacks} />
-            <SubmitFeedback assignmentId={assignmentID} setCounter={setCounter} />
+            <SubmitFeedback assignmentId={assignmentID} setCounter={setCounter} answerID={response.submittedAssignment.answer} />
         </div>
     </div>
 

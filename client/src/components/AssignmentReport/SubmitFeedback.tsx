@@ -3,9 +3,11 @@ import { FaWandMagicSparkles } from "react-icons/fa6";
 import { MdOutlineFeedback } from "react-icons/md";
 import AssignmentContext from "../../context/AssignmentContext";
 import { useContext, useRef } from "react";
+import { storage } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 
-const SubmitFeedback = (props: { assignmentId: string, setCounter: any }) => {
-  const { sendFeedback } = useContext(AssignmentContext);
+const SubmitFeedback = (props: { assignmentId: string, setCounter: any, answerID: any }) => {
+  const { sendFeedback, getAIfeedback } = useContext(AssignmentContext);
   const feedbackRef = useRef<HTMLInputElement>(null);
 
   const handleSendFeedback = async () => {
@@ -17,6 +19,15 @@ const SubmitFeedback = (props: { assignmentId: string, setCounter: any }) => {
     if (response) {
       props.setCounter((prev: number) => prev + 1);
       feedbackRef.current!.value = "";
+    }
+  }
+
+  const handleSendAIFeedback = async () => {
+    console.log(props.answerID);
+    const answer = await getDownloadURL(ref(storage, props.answerID));
+    const response = await getAIfeedback(props.assignmentId, answer);
+    if (response) {
+      props.setCounter((prev: number) => prev + 1);
     }
   }
 
@@ -36,7 +47,9 @@ const SubmitFeedback = (props: { assignmentId: string, setCounter: any }) => {
         <MdOutlineFeedback className="mr-2 my-auto" size={20} />
           Send Feedback
         </button>
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center cursor-pointer">
+        <button
+        onClick={handleSendAIFeedback}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center cursor-pointer">
           <FaWandMagicSparkles className="mr-2" size={20} />
           Send AI Feedback
         </button>
