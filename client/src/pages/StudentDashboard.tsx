@@ -5,6 +5,7 @@ import GlobalContext from '../context/GlobalContext'
 import Classrooms from '../components/Student/StudentClassrooms'
 import Assignments from '../components/Student/StudentAssignments'
 import Classroom from '../components/Student/StudentClassroom'
+import StudentViewAssignment from '../components/Student/StudentViewAssignment'
 
 
 const StudentDashboard = () => {
@@ -21,6 +22,8 @@ const StudentDashboard = () => {
             {/* {activeComponent === "createClassrooms" && <CreateClassroom />} */}
             {activeComponent === "assignments" && <Assignments />}
             {activeComponent === "classroom" && <Classroom />}
+            {activeComponent === "viewAssignment" && <StudentViewAssignment />}
+
             {/* {activeComponent === "createAssignments" && <CreateAssignment />} */}
 
         </div>

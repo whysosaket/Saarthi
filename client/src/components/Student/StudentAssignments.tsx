@@ -1,14 +1,10 @@
 import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
-import { GoPlus } from "react-icons/go";
-import AssignmentContext from "../../context/AssignmentContext";
-import GlobalContext from "../../context/GlobalContext";
 import AssignmentCard from "./StudentAssignmentCard";
 import StudentContext from "../../context/StudentContext";
 
 const StudentAssignments = () => {
 
-    const {handleComponentChange} = useContext(GlobalContext);
     const {getMyAssignments} = useContext(StudentContext);
     const [assignments, setAssignments] = useState([]);
 

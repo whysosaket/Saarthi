@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 let url = import.meta.env.VITE_URL;
 
 const items = ["classrooms", "createClassrooms", "assignments", "classroom", "assignment", "createAssignments"];
-const studentItems = ["classrooms", "assignments", "classroom", "assignment", "uploadAssignment"];
+const studentItems = ["classrooms", "assignments", "classroom", "assignment", "uploadAssignment", "viewAssignment"];
 
 const GlobalState = (props: any) => {
 
@@ -23,6 +23,7 @@ const GlobalState = (props: any) => {
 
     const handleComponentChange = (component: string) => {
         if (items.includes(component) || studentItems.includes(component)) {
+            console.log("changing component to ", component);
             setActiveComponent(component);
         }
     }

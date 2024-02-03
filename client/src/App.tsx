@@ -47,7 +47,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/studentdashboard" element={<StudentDashboard />} />
-            <Route path="/submit/:id" element={<StudentSubmitAssignment/>} />
+            <Route path="/submit/:id" element={<StudentDashboard/>} />
             <Route path="/join">
               <Route path="" element={<Join />} />
               <Route path=":id" element={<Join />} />

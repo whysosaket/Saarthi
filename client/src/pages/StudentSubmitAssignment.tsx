@@ -30,7 +30,7 @@ const StudentSubmitAssignment = () => {
     }
 
   return (
-    <div className="my-8 h-screen ">
+    <div className="my-8 h-screen w-full">
       <h1 className="text-center font-semibold text-4xl my-4">
         <span className="text-blue-500 mr-2">Submit</span>
         Assignment

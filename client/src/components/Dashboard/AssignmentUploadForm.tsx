@@ -67,9 +67,9 @@ const AssignmentUploadForm = () => {
   return (
     <>
       <motion.div
-        initial={{ y: 300 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.4 }}
+        initial={{ opacity: 0,y: 300 }}
+        animate={{ opacity: 1,y: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
         className="flex justify-center w-full mx-auto sm:max-w-lg"
       >
         <div className="flex flex-col items-center justify-center w-full h-auto my-8 py-6 bg-white/10 sm:w-3/4 sm:rounded-lg sm:shadow-xl">
