@@ -373,11 +373,13 @@ const getSubmittedAssignments = async (req: CustomRequest, res: Response) => {
       let student = await User.findById(
         // @ts-ignore
         assignment.submissions[i].student
-      ).select("name");
+      ).select("name _id");
       
       sendNames.push({
         // @ts-ignore
         name: student.name,
+        // @ts-ignore
+        id: student._id,
         submission: assignment.submissions[i],
       });
     }

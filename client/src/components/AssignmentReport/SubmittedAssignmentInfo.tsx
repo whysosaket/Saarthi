@@ -79,7 +79,7 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
             <span className="font-semibold mr-3">Grade:</span>
 
             {hasUpdatedGrade ? gradeValue :
-            props.a.submittedAssignment.grade
+            props.a.submittedAssignment.grade&&props.a.submittedAssignment.grade.toFixed(2)
             }
           </div>
           <div className="text-white text-sm font-extralight">
@@ -100,18 +100,18 @@ const SubmittedAssignmentInfo = (props: { a: any }) => {
 <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">Plagarism:</span>
 
-            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+            {props.a.submittedAssignment.plagarism ? "Yes" : "No"}
           </div>
 
           <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">Internet Plagarism:</span>
 
-            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+            {props.a.submittedAssignment.plagarismChance&&props.a.submittedAssignment.plagarismChance.toFixed(2)}
           </div>
           <div className="text-white text-sm font-extralight">
             <span className="font-semibold mr-3">AI Plagarism:</span>
 
-            {props.a.submittedAssignment.dispute ? "Yes" : "No"}
+            {props.a.submittedAssignment.aiProbability&&props.a.submittedAssignment.aiProbability.toFixed(2)}
           </div>
         </div>
         <div className="flex justify-start">

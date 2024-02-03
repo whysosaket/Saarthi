@@ -8,7 +8,6 @@ const studentAssignmentSchema = new mongoose.Schema({
     grade: {type: Number, required: false, default: 0},
     submittedDate: {type: Date, required: false, default: Date.now()},
     plagarism: {type: Boolean, required: false, default: false},
-    similarityIndex: {type: Number, required: false},
     status: {type: String, required: false, default: 'pending'},
     feedback: {type: [String], required: false},
     answer: {type: String, required: true},

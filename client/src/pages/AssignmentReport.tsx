@@ -1,10 +1,13 @@
 import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import AssignmentContext from "../context/AssignmentContext";
+import StudentContext from "../context/StudentContext";
 import SubmittedAssignmentInfo from "../components/AssignmentReport/SubmittedAssignmentInfo";
 import Feedbacks from "../components/AssignmentReport/Feedbacks";
 import SubmitFeedback from "../components/AssignmentReport/SubmitFeedback";
 import {motion} from "framer-motion";
+import { storage } from "../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 
 
 const AssignmentReport = () => {
@@ -12,6 +15,7 @@ const AssignmentReport = () => {
     let assignmentID = location.pathname.split("/")[2];
 
     const {getSubmittedAssignmentReport} = useContext(AssignmentContext);
+    const {giveStudentMarks} = useContext(StudentContext);
     const [feedbacks, setFeedbacks] = useState([]);
     const [response, setResponse] = useState<any>(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -21,6 +25,10 @@ const AssignmentReport = () => {
         handleGetSubmittedAssignmentReport();
     }, [counter]);
 
+    useEffect(() => {
+        handleGiveStudentMarks();
+    }, [response]);
+
     const handleGetSubmittedAssignmentReport = async () => {
         const response = await getSubmittedAssignmentReport(assignmentID);
         if(response){
@@ -29,6 +37,19 @@ const AssignmentReport = () => {
             setResponse(response);
             setIsLoaded(true);
         }
+    }
+
+    const handleGiveStudentMarks = async () => {
+
+        let assignmentID = response.assignment._id;
+        let studentID = response.student._id;
+        let studentAnswer = response.submittedAssignment.answer;
+        let correctAnswer = response.assignment.answers;
+
+        studentAnswer = await getDownloadURL(ref(storage, studentAnswer));
+        correctAnswer = await getDownloadURL(ref(storage, correctAnswer));
+        await giveStudentMarks(assignmentID, studentID, studentAnswer, correctAnswer);
+
     }
     
 

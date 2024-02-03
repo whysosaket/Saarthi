@@ -4,13 +4,17 @@ import {getDownloadURL, ref} from "firebase/storage";
 import { storage } from "../../firebase";
 import {motion} from "framer-motion";
 import GlobalContext from "../../context/GlobalContext";
+import StudentContext from "../../context/StudentContext";
 import { useNavigate } from "react-router-dom";
+import { FaRegCopy } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 const AssignmentInfo = (props: {assignmentID: string}) => {
 
-    const {getAssignment, deleteAssignment} = useContext(AssignmentContext);
-    const {handleComponentChange} = useContext(GlobalContext);
-    const [assignment, setAssignment] = useState({assignmentName: "", description: "", dueDate: "", assignedDate: "", questions: "", answers: "", submissions: []});
+    const {getAssignment, deleteAssignment, getSubmittedAssignments} = useContext(AssignmentContext);
+    const {handleComponentChange, toastMessage} = useContext(GlobalContext);
+    const {checkPlagarism} = useContext(StudentContext);
+    const [assignment, setAssignment] = useState({_id: "", assignmentName: "", description: "", dueDate: "", assignedDate: "", questions: "", answers: "", submissions: []});
 
     const navigate = useNavigate();
 
@@ -43,6 +47,26 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
             handleComponentChange("classrooms");
             navigate("/dashboard");
         }
+    }
+
+    const handleCheckPlagarism = async () => {
+        // const response = await checkPlagarism(props.assignmentID);
+        const getSubmittedAssignmentsResponse = await getSubmittedAssignments(props.assignmentID);
+
+        let studentIDs:any = [];
+        getSubmittedAssignmentsResponse.forEach((submission: any) => {
+            studentIDs.push(submission.id);
+        });
+
+        let answers:any = [];
+        for (let i = 0; i < studentIDs.length; i++) {
+            const url = await getDownloadURL(ref(storage, getSubmittedAssignmentsResponse[i].submission.answer));
+            answers.push(url);
+        }
+        
+        toastMessage("Plagarism check initiated", "success");
+
+        await checkPlagarism(assignment._id, studentIDs, answers);
     }
 
 
@@ -102,11 +126,13 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
                 Manage Assignment
             </div>
             <div className="text-white text-sm font-extralight mt-6">
-                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                    Delete Assignment
+                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded">
+                    <MdDeleteOutline className="inline-block my-auto h-5 w-5 mr-2" />
+                    Delete
                 </button>
-                <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded ml-4">
-                    Edit Assignment
+                <button onClick={handleCheckPlagarism} className="bg-yellow-500 hover:bg-yellow-700 text-white cursor-pointer font-bold py-2 px-4 rounded ml-4">
+                    <FaRegCopy className="inline-block my-auto h-5 w-5 mr-2" />
+                    Check Plagarism
                 </button>
             </div>
         </motion.div>

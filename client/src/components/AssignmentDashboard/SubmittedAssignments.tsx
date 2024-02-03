@@ -47,6 +47,7 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
             <span className="text-white/50 text-center">Status</span>
             <span className="text-white/50 text-center">Submission Date</span>
           </div>
+          <div className="max-h-96 overflow-y-scroll">
           {submittedAssignments.map((assignment: any, index: number) => (
             <motion.div
                 initial={{ opacity: 0.0, x: 50 + index * 20 }}
@@ -67,6 +68,7 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
               </span>
             </motion.div>
           ))}
+          </div>
         </div>
       </div>
     </motion.div>

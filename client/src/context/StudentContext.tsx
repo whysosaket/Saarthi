@@ -80,12 +80,61 @@ const StudentState = (props: any) => {
         }
     }
 
+    const giveStudentMarks = async (assignmentID: string, studentID: string, studentAnswer: string, correctAnswer: string) => {
+        try {
+            const res = await fetch(`${url}/api/flask/getmarks/`, {
+                method: "POST",
+                headers: {
+                    "auth-token": localStorage.getItem("auth-token")!,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({studentID, assignmentID, studentAnswer, correctAnswer})
+            });
+            const data = await res.json();
+            if (data.success) {
+                return true;
+            }else {
+                // toastMessage(data.error, "error");
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
+    const checkPlagarism = async (assignmentID: string, studentIDs: [string], answers: [string]) => {
+
+        try{
+            const res = await fetch(`${url}/api/flask/checkplagarism/`, {
+                method: "POST",
+                headers: {
+                    "auth-token": localStorage.getItem("auth-token")!,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({assignmentID, studentIDs, answers})
+            });
+            const data = await res.json();
+            if (data.success) {
+                toastMessage("An assignment plagarism test has completed", "success");
+                return data;
+            }else {
+                toastMessage(data.error, "error");
+                return {};
+            }
+        }
+        catch(err){
+            console.log(err);
+            return {};
+        }
+
+    }
 
 
 
 
     return (
-        <StudentContext.Provider value={{toastMessage, getMyClassrooms, getMyAssignments, getStudent}}>
+        <StudentContext.Provider value={{toastMessage, getMyClassrooms, getMyAssignments, checkPlagarism, getStudent, giveStudentMarks}}>
         {props.children}
         </StudentContext.Provider>
     )
