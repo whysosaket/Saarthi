@@ -1,6 +1,5 @@
 import ClassroomCard from "./StudentClassroomCard";
 import { HiOutlineViewGrid } from "react-icons/hi";
-import { GoPlus } from "react-icons/go";
 import {motion} from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import GlobalContext from "../../context/GlobalContext";

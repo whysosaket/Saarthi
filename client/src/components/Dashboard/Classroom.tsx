@@ -4,6 +4,7 @@ import ClassroomInfo from "./ClassroomInfo";
 import GlobalContext from "../../context/GlobalContext";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useEffect, useState } from "react";
+import ClassroomAssignments from "./ClassroomAssignments";
 
 const clientUrl = import.meta.env.VITE_CLIENT_URL;
 
@@ -78,7 +79,7 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
                 onClick={() => setShowModal(true)}
-              className="bg-red-600 text-white hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
+              className="bg-red-600 text-white font-semibold hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
             >
               Delete Classroom
             </motion.button>
@@ -87,7 +88,7 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
               onClick={copyJoinLink}
-              className="bg-green-600 text-white hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
+              className="bg-green-600 text-white font-semibold hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2"
             >
                 Copy Join Link
             </motion.button>
@@ -103,6 +104,7 @@ const Classroom = () => {
             students={classroomInfo.studentIds}
             classroomID={activeClassroom}
           />
+          <ClassroomAssignments classroomID={activeClassroom} />
         </motion.div>
       </div>
     </div>

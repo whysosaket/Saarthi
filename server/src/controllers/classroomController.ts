@@ -281,6 +281,34 @@ const removeStudentFromClassroom = async (
   }
 };
 
+const getClassroomAssignments = async (req: CustomRequest, res: Response) => {
+    let success = false;
+    
+    // Saving req data into a variable
+    let data = req.params;
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        let classroomID = data.classroomID;
+        let classroom = await Classroom
+            .findOne({ classRoomId: classroomID })
+            .populate('assignments');
+
+        if (!classroom) {
+            return res.status(400).json({ success, error: "Classroom not found!" });
+        }
+
+        success = true;
+        return res.json({ success, assignments: classroom.assignments });
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+
 export {
   createClassroom,
   joinClassroom,
@@ -289,4 +317,5 @@ export {
   getClassroomInfo,
   deleteClassroom,
   removeStudentFromClassroom,
+  getClassroomAssignments,
 };

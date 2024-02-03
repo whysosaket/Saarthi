@@ -182,11 +182,32 @@ const ClassroomState = (props: any) => {
             }
         }
 
+        const getClassroomAssignments = async (classroomID: string) => {
+            try {
+                const res = await fetch(`${url}/api/classroom/assignments/${classroomID}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token") || ""
+                    }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    return data.assignments;
+                } else {
+                    return [];
+                }
+            } catch (err) {
+                console.log(err);
+                return [];
+            }
+        }
+
 
 
 
     return (
-        <ClassroomContext.Provider value={{toastMessage, createClassroom, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom, joinClassroom}}>
+        <ClassroomContext.Provider value={{toastMessage, createClassroom, getClassroomAssignments, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom, joinClassroom}}>
         {props.children}
         </ClassroomContext.Provider>
     )

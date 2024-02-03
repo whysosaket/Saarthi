@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import Classrooms from '../components/Student/StudentClassrooms'
 import Assignments from '../components/Student/StudentAssignments'
+import Classroom from '../components/Student/StudentClassroom'
 
 
 const StudentDashboard = () => {
@@ -19,7 +20,7 @@ const StudentDashboard = () => {
             {activeComponent === "classrooms" && <Classrooms />}
             {/* {activeComponent === "createClassrooms" && <CreateClassroom />} */}
             {activeComponent === "assignments" && <Assignments />}
-            {/* {activeComponent === "classroom" && <Classroom />} */}
+            {activeComponent === "classroom" && <Classroom />}
             {/* {activeComponent === "createAssignments" && <CreateAssignment />} */}
 
         </div>
