@@ -12,6 +12,7 @@ const assignmentSchema = new mongoose.Schema({
     classRoomId: {type: mongoose.Schema.Types.ObjectId, ref: 'classroom', required: true},
     maxGrade: {type: Number, required: false},
     questions: {type: String, required: true},
+    solutions: {type: String, required: false},
     classroomName: {type: String, required: true},
     submissions: [{type: mongoose.Schema.Types.ObjectId, ref: 'studentAssignment', required: false}],
 });

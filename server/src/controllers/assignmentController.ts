@@ -57,6 +57,7 @@ const createAssignment = async (req: CustomRequest, res: Response) => {
             assignedDate: new Date(),
             questions: data.questions,
             classroomName: classroom.className,
+            answers: data.answers
         });
 
         // save the assignment
