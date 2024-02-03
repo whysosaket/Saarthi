@@ -69,7 +69,7 @@ const StudentState = (props: any) => {
             });
             const data = await res.json();
             if (data.success) {
-                return data.student;
+                return data;
             }else {
                 toastMessage(data.error, "error");
                 return {};

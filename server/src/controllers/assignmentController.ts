@@ -380,6 +380,46 @@ const getSubmittedAssignments = async (req: CustomRequest, res: Response) => {
     }
 }
 
+const getAssignmentReport = async (req: CustomRequest, res: Response) => {
+  let success = false;
+
+  // Saving req data into a variable
+  let data = req.params;
+
+  try {
+    // check if user exists
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ success, error: "User not found!" });
+    }
+
+    // check if assignment exists
+    let submittedAssignment = await StudentAssignment.findById(data.assignmentID);
+
+    if (!submittedAssignment) {
+      return res.status(400).json({ success, error: "Submitted Assignment not found!" });
+    }
+
+    let assignment = await Assignment.findById(submittedAssignment.assignment);
+    if (!assignment) {
+      return res.status(400).json({ success, error: "Assignment not found!" });
+    }
+
+    let student = await User.findById(submittedAssignment.student, "name email");
+    if (!student) {
+      return res.status(400).json({ success, error: "Student not found!" });
+    }
+
+
+    success = true;
+    return res.json({ success, submittedAssignment, student, assignment });
+  } catch (error) {
+    return res.status(500).json({ success, error: "Internal Server Error!" });
+  }
+}
+
+
+
 export {
   createAssignment,
   addStudentsToAssignment,
@@ -387,5 +427,6 @@ export {
   getAllAssignments,
   addStudentAssignment,
     deleteAssignment,
-    getSubmittedAssignments
+    getSubmittedAssignments,
+    getAssignmentReport
 };

@@ -161,8 +161,29 @@ const AssignmentState = (props: any) => {
         }
     }
 
+    const getSubmittedAssignmentReport = async (assignmentId: string) => {
+        try {
+            const res = await fetch(`${url}/api/assignment/report/${assignmentId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("auth-token") || ""
+                },
+            });
+            const data = await res.json();
+            if (data.success) {
+                return data;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+
     return (
-        <AssignmentContext.Provider value={{toastMessage,deleteAssignment, getAssignment,submitAssignment, getSubmittedAssignments, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
+        <AssignmentContext.Provider value={{toastMessage,deleteAssignment, getSubmittedAssignmentReport, getAssignment,submitAssignment, getSubmittedAssignments, getAllAssignments, questionLink, answerLink, handlePostUpload, createAssignment}}>
         {props.children}
         </AssignmentContext.Provider>
     )
