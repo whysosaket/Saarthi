@@ -1,14 +1,16 @@
 import {motion} from "framer-motion"
-// import GlobalContext from "../../context/GlobalContext";
-// import {useContext} from "react";
+import GlobalContext from "../../context/GlobalContext";
+import {useContext} from "react";
+import {useNavigate} from "react-router-dom";
 
 const AssignmentCard = (props: {index: number, assignment: any }) => {
-    // const {handleComponentChange } = useContext(GlobalContext);
+  const {handleComponentChange } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
-    const handleClassroomClick = () => {
-        // setActiveClassroom(props.classRoom.classRoomId);
-        // handleComponentChange("classroom");
-    }
+  const handleClassroomClick = () => {
+    handleComponentChange("viewAssignment");
+    navigate(`/assignment/${props.assignment.assignmentId}`);
+  };
 
     let dueDate = new Date(props.assignment.dueDate).toDateString();
 

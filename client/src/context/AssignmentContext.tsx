@@ -55,7 +55,7 @@ const AssignmentState = (props: any) => {
                     "Content-Type": "application/json",
                     "auth-token": localStorage.getItem("auth-token") || ""
                 },
-                body: JSON.stringify({ assignmentName: name, classroomID: classroom, description, dueDate, questions: questionLink, answer: answerLink }),
+                body: JSON.stringify({ assignmentName: name, classroomID: classroom, description, dueDate, questions: questionLink, answers: answerLink }),
             });
             const data = await res.json();
             if (data.success) {

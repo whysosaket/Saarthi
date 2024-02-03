@@ -15,6 +15,7 @@ const assignmentSchema = new mongoose.Schema({
     solutions: {type: String, required: false},
     classroomName: {type: String, required: true},
     submissions: [{type: mongoose.Schema.Types.ObjectId, ref: 'studentAssignment', required: false}],
+    answers: {type: String, required: true},
 });
 
 export default mongoose.model('assignment', assignmentSchema);

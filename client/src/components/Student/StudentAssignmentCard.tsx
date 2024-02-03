@@ -41,10 +41,6 @@ const AssignmentCard = (props: { index: number; assignment: any }) => {
         <p className="text-white/50 text-center font-semibold">
           {props.assignment.classroomName}
         </p>
-        {<button onClick={handleClassroomClick} className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition flex justify-center items-center  transform hover:-translate-y-0.5">
-          <FaBook className="h-3 w-3 mr-2" />
-          View
-        </button>}
       </motion.div>
     </>
   );

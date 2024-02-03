@@ -6,6 +6,7 @@ import VerticalNavbar from "../components/Dashboard/VerticalNavbar";
 import { useEffect, useContext } from "react";
 import GlobalContext from "../context/GlobalContext";
 import Classroom from "../components/Dashboard/Classroom";
+import AssignmentDashboard from "../components/AssignmentDashboard/AssignmentDashboard";
 
 const Dashboard = () => {
   const { activeComponent } = useContext(GlobalContext);
@@ -28,6 +29,7 @@ const Dashboard = () => {
           {activeComponent === "assignments" && <Assignments />}
           {activeComponent === "classroom" && <Classroom />}
           {activeComponent === "createAssignments" && <CreateAssignment />}
+          {activeComponent === "viewAssignment" && <AssignmentDashboard />}
         </div>
       </div>
     </>
