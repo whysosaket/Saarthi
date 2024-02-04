@@ -8,6 +8,7 @@ import Classroom from "../models/Classroom";
 import CustomRequest from "../types/CustomRequest";
 
 import { generateRandomString } from "../utils/UserHelper";
+import StudentAssignment from "../models/StudentAssignment";
 
 const createClassroom = async (req: CustomRequest, res: Response) => {
   let success = false;
@@ -309,6 +310,74 @@ const getClassroomAssignments = async (req: CustomRequest, res: Response) => {
     }
 }
 
+const getGradeBook = async (req: CustomRequest, res: Response) => {
+    let success = false;
+    
+    // Saving req data into a variable
+    let {classroomID} = req.params;
+    try {
+        // check if user exists
+        let user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(400).json({ success, error: "User not found!" });
+        }
+
+        let classroom = await Classroom
+            .findOne({ classRoomId: classroomID })
+            .populate('assignments');
+        
+        if (!classroom) {
+            return res.status(400).json({ success, error: "Classroom not found!" });
+        }
+
+        // console.log(classroom.assignments);
+        let totalAverageGrade = 0;
+        let submissionRatio = 0;
+        let assignmentAverageGrade = [];
+        let assignmentSubmissionRatio = [];
+
+        for (let i = 0; i < classroom.assignments.length; i++) {
+            let assignment = classroom.assignments[i];
+            let totalGrade = 0;
+            let totalSubmissions = 0;
+            // @ts-ignore
+            for (let j = 0; j < assignment.submissions.length; j++) {
+                // @ts-ignore
+                let studentAssignment = await StudentAssignment.findById(assignment.submissions[j]);
+                // @ts-ignore
+                if (studentAssignment.status == 'graded') {
+                    // @ts-ignore
+                    totalGrade += studentAssignment.grade;
+                    totalSubmissions++;
+                }
+            }
+
+            // @ts-ignore
+            assignmentAverageGrade.push({assignment: assignment.assignmentName, averageGrade: totalGrade / totalSubmissions});
+            // @ts-ignore
+            assignmentSubmissionRatio.push({assignment: assignment.assignmentName, submissionRatio: totalSubmissions / classroom.studentIds.length});
+        }
+
+        for (let i = 0; i < assignmentAverageGrade.length; i++) {
+            totalAverageGrade += assignmentAverageGrade[i].averageGrade;
+        }
+
+        totalAverageGrade = totalAverageGrade / assignmentAverageGrade.length;
+
+        for (let i = 0; i < assignmentSubmissionRatio.length; i++) {
+            submissionRatio += assignmentSubmissionRatio[i].submissionRatio;
+        }
+
+        submissionRatio = submissionRatio / assignmentSubmissionRatio.length;
+
+        success = true;
+        return res.json({ success, totalAverageGrade, submissionRatio, assignmentAverageGrade, assignmentSubmissionRatio });
+
+    } catch (error) {
+        return res.status(500).json({ success, error: "Internal Server Error!" });
+    }
+}
+
 export {
   createClassroom,
   joinClassroom,
@@ -318,4 +387,5 @@ export {
   deleteClassroom,
   removeStudentFromClassroom,
   getClassroomAssignments,
+  getGradeBook
 };

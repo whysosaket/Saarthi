@@ -203,11 +203,34 @@ const ClassroomState = (props: any) => {
             }
         }
 
+        const getGradeBook = async (classroomID: string) => {
+
+            try {
+                const res = await fetch(`${url}/api/classroom/gradebook/${classroomID}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": localStorage.getItem("auth-token") || ""
+                    }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    return data;
+                } else {
+                    return [];
+                }
+            } catch (err) {
+                console.log(err);
+                return [];
+            }
+        }
+
+
 
 
 
     return (
-        <ClassroomContext.Provider value={{toastMessage, createClassroom, getClassroomAssignments, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom, joinClassroom}}>
+        <ClassroomContext.Provider value={{toastMessage, getGradeBook, createClassroom, getClassroomAssignments, getAllStudents, getClassroomInfo, getAllClassrooms, removeClassroomStudent, deleteClassroom, joinClassroom}}>
         {props.children}
         </ClassroomContext.Provider>
     )

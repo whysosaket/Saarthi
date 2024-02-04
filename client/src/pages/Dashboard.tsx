@@ -8,8 +8,9 @@ import GlobalContext from "../context/GlobalContext";
 import Classroom from "../components/Dashboard/Classroom";
 import AssignmentDashboard from "../components/AssignmentDashboard/AssignmentDashboard";
 import AssignmentReport from "./AssignmentReport";
+import GradeBook from "./GradeBook";
 
-const items = ["classrooms", "assignments", "classroom", "createClassrooms", "createAssignments", "viewAssignment", "assignmentReport"];
+const items = ["classrooms", "assignments", "classroom", "createClassrooms", "createAssignments", "viewAssignment", "assignmentReport", "gradeBook"];
 
 const Dashboard = () => {
   const { activeComponent, handleComponentChange } = useContext(GlobalContext);
@@ -38,6 +39,7 @@ const Dashboard = () => {
           {activeComponent === "createAssignments" && <CreateAssignment />}
           {activeComponent === "viewAssignment" && <AssignmentDashboard />}
           {activeComponent === "assignmentReport" && <AssignmentReport />}
+          {activeComponent === "gradeBook" && <GradeBook />}
         </div>
       </div>
     </>

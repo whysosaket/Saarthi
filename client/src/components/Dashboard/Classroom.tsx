@@ -5,14 +5,17 @@ import GlobalContext from "../../context/GlobalContext";
 import ClassroomContext from "../../context/ClassroomContext";
 import { useContext, useEffect, useState } from "react";
 import ClassroomAssignments from "./ClassroomAssignments";
-import { LuClipboardCopy, LuDownloadCloud } from "react-icons/lu";
+import { LuClipboardCopy} from "react-icons/lu";
 import { MdDeleteForever } from "react-icons/md";
+import { IoBookSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const clientUrl = import.meta.env.VITE_CLIENT_URL;
 
 const Classroom = () => {
   const { activeClassroom, handleComponentChange, toastMessage } = useContext(GlobalContext);
   const { getClassroomInfo, deleteClassroom } = useContext(ClassroomContext);
+  const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -35,6 +38,11 @@ const Classroom = () => {
       setClassroomInfo(response);
     }
   };
+
+  const gradeBook = () => {
+    handleComponentChange("gradeBook");
+    navigate(`/gradebook/${activeClassroom}`);
+  }
 
 
   const handleDeleteClassroom = async () => {
@@ -95,6 +103,16 @@ const Classroom = () => {
             >
               <LuClipboardCopy className="h-6 w-6 mr-2" />
                 Join Link
+            </motion.button>
+            <motion.button
+              initial={{ x: -70 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+              onClick={gradeBook}
+              className="bg-blue-600 text-white font-semibold cursor-pointer hover:bg-blue-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
+            >
+              <IoBookSharp className="h-6 w-6 mr-2" />
+              GradeBook
             </motion.button>
           </div>
         </motion.div>

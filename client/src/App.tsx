@@ -18,6 +18,7 @@ import Join from "./pages/Join";
 import StudentDashboard from "./pages/StudentDashboard";
 import { StudentState } from "./context/StudentContext";
 import StudentAssignmentReport from "./pages/StudentAssignmentReport";
+import GradeBook from "./pages/GradeBook";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/submit/:id" element={<StudentDashboard/>} />
             <Route path="/assignmentreport/:id" element={<Dashboard />} />
             <Route path="/studentassignmentreport/:id" element={<StudentDashboard />} />
+            <Route path="/gradebook/:id" element={<Dashboard />} />
             <Route path="/join">
               <Route path="" element={<Join />} />
               <Route path=":id" element={<Join />} />
