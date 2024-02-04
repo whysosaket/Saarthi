@@ -1,6 +1,6 @@
 
 import StudentVerticalNavbar from '../components/Student/StudentVerticalNavbar'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import Classrooms from '../components/Student/StudentClassrooms'
 import Assignments from '../components/Student/StudentAssignments'
@@ -8,9 +8,20 @@ import Classroom from '../components/Student/StudentClassroom'
 import StudentViewAssignment from '../components/Student/StudentViewAssignment'
 import StudentAssignmentReport from './StudentAssignmentReport'
 
+const items = ["classrooms", "assignments", "classroom", "viewAssignment", "assignmentReport"];
 
 const StudentDashboard = () => {
-    const { activeComponent } = useContext(GlobalContext);
+    const { activeComponent, handleComponentChange } = useContext(GlobalContext);
+    useEffect(() => {
+      if (items.includes(activeComponent)) {
+        handleComponentChange(activeComponent);
+      } else {
+        handleComponentChange("classrooms");
+      }
+      // setting scroll to top
+      window.scrollTo(0, 0);
+    }, [activeComponent]);
+
   return (
     <>
     <div className="bg-gray-900 bg-opacity-50 min-h-screen flex justify-center w-full">

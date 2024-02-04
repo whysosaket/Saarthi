@@ -5,6 +5,8 @@ import AssignmentContext from "../../context/AssignmentContext";
 import { storage } from "../../firebase";
 import {ref, uploadBytes} from "firebase/storage";
 import { v4  } from "uuid";
+import { FiUploadCloud } from "react-icons/fi";
+import { MdLayersClear } from "react-icons/md";
 
 const AssignmentUploadForm = () => {
   const {toastMessage, handlePostUpload} = useContext(AssignmentContext);
@@ -120,8 +122,9 @@ const AssignmentUploadForm = () => {
               <div className="flex items-center justify-center w-full">
                 <button
                   onClick={clearSelection}
-                  className="text-white py-2 px-4 rounded-xl bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded-xl flex items-center  bg-red-500 hover:bg-red-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
+                  <MdLayersClear className="mr-2" size={20} />
                   Clear Selection
                 </button>
               </div>
@@ -129,8 +132,9 @@ const AssignmentUploadForm = () => {
               <div className="flex items-center justify-center w-full">
                 <button
                   onClick={handleFileUpload}
-                  className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded-xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
+                  <FiUploadCloud className="mr-2" size={20} />
                   Upload Files
                 </button>
               </div>

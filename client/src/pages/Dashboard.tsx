@@ -9,13 +9,19 @@ import Classroom from "../components/Dashboard/Classroom";
 import AssignmentDashboard from "../components/AssignmentDashboard/AssignmentDashboard";
 import AssignmentReport from "./AssignmentReport";
 
-const Dashboard = () => {
-  const { activeComponent } = useContext(GlobalContext);
+const items = ["classrooms", "assignments", "classroom", "createClassrooms", "createAssignments", "viewAssignment", "assignmentReport"];
 
-  useEffect(() => {
-    // setting scroll to top
-    window.scrollTo(0, 0);
-  }, []);
+const Dashboard = () => {
+  const { activeComponent, handleComponentChange } = useContext(GlobalContext);
+    useEffect(() => {
+      if (items.includes(activeComponent)) {
+        handleComponentChange(activeComponent);
+      } else {
+        handleComponentChange("classrooms");
+      }
+      // setting scroll to top
+      window.scrollTo(0, 0);
+    }, [activeComponent]);
 
   return (
     <>

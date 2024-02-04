@@ -9,6 +9,7 @@ import ClassroomContext from "../../context/ClassroomContext";
 import AssignmentContext from "../../context/AssignmentContext";
 import GlobalContext from "../../context/GlobalContext";
 import { useContext, useEffect, useRef, useState } from "react";
+import { MdAssignment } from "react-icons/md";
 
 const CreateAssignmentForm = () => {
   const { handleComponentChange } = useContext(GlobalContext);
@@ -146,8 +147,9 @@ const CreateAssignmentForm = () => {
               <div className="flex items-center justify-center mt-8">
                 <button
                   onClick={handleCreateAssignment}
-                  className="text-white py-2 px-4 rounded-xl bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded-xl flex items-center cursor-pointer bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
+                  <MdAssignment className="h-6 w-6 inline-block mr-2" />
                   Create Assignment
                 </button>
               </div>
