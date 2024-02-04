@@ -23,12 +23,16 @@ const GradeBook = () => {
     const handleGetGradeBook = async () => {
         const response = await getGradeBook(assignmentID);
         if(response){
+            if(response.length === 0){
+                handleComponentChange("classrooms");
+            }
             setResponse(response);
         }else{
             handleComponentChange("classrooms");
         }
         const classroomInfo = await getClassroomInfo(assignmentID);
         if(classroomInfo){
+            console.log(classroomInfo);
             setClassroomInfo(classroomInfo);
             setIsLoaded(true);
         }else{

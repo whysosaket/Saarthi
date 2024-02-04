@@ -100,7 +100,7 @@ const ClassroomState = (props: any) => {
             if (data.success) {
                 return data.classroom;
             } else {
-                toastMessage(data.error, "error");
+                // toastMessage(data.error, "error");
                 return {};
             }
         } catch (err) {
