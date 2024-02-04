@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import {motion} from "framer-motion";
 import ClassroomContext from "../context/ClassroomContext";
+import GlobalContext from "../context/GlobalContext";
 import ClassroomInfo from "../components/GradeBook/ClassroomInfo";
 import Students from "../components/GradeBook/Students";
 
@@ -10,6 +11,7 @@ const GradeBook = () => {
     let assignmentID = location.pathname.split("/")[2];
 
     const {getGradeBook, getClassroomInfo} = useContext(ClassroomContext);
+    const {handleComponentChange} = useContext(GlobalContext);
     const [response, setResponse] = useState<any>(null);
     const [classroomInfo, setClassroomInfo] = useState<any>(null)
     const [isLoaded, setIsLoaded] = useState(false);
@@ -22,11 +24,15 @@ const GradeBook = () => {
         const response = await getGradeBook(assignmentID);
         if(response){
             setResponse(response);
+        }else{
+            handleComponentChange("classrooms");
         }
         const classroomInfo = await getClassroomInfo(assignmentID);
         if(classroomInfo){
             setClassroomInfo(classroomInfo);
             setIsLoaded(true);
+        }else{
+            handleComponentChange("classrooms");
         }
         
     }
