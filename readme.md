@@ -18,8 +18,6 @@ Saarthi is an innovative educational platform designed to provide a seamless and
 
 - **Plagiarism Detection** 🚫: Ensure academic integrity with both online and intra-class plagiarism detection.
 
-- **Automated Google Form with Management** 📅: Streamline processes with automated Google Forms and efficient form management.
-
 - **Classroom Management** 🎓: Effectively manage classrooms for a smooth teaching and learning experience.
 
 - **Individual Management** 👤: Tailor education to individual needs with personalized student management.
