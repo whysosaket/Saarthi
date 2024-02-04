@@ -286,7 +286,6 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
 
   // Saving req data into a variable
   let data = req.params;
-
   try {
     // check if user exists
     let user = await User.findById(req.user.id);
@@ -297,7 +296,7 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
     // check if assignment exists
     let assignment = await Assignment.findOne({
       assignmentId: data.assignmentID,
-    }).populate("classRoomId");
+    });
 
     if (!assignment) {
       return res.status(400).json({ success, error: "Assignment not found!" });
@@ -312,7 +311,7 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
 
     // delete assignment from classroom
     let classroom = await Classroom.findById(
-      assignment.classRoomId._id
+      assignment.classRoomId
     ).populate("assignments");
 
     if (classroom) {
@@ -330,6 +329,7 @@ const deleteAssignment = async (req: CustomRequest, res: Response) => {
     success = true;
     return res.json({ success, info: "Assignment deleted!" });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ success, error: "Internal Server Error!" });
   }
 };

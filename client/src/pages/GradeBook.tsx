@@ -49,7 +49,7 @@ const GradeBook = () => {
       initial={{y: -100}}
         animate={{y: 0}}
         transition={{duration: 0.7}}
-      className="text-center font-semibold text-4xl my-4">
+      className="text-center font-semibold text-4xl">
         Grade
         <span className="text-blue-500 ml-2">Book</span>
       </motion.h1>

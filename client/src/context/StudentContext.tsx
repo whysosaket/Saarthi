@@ -119,13 +119,12 @@ const StudentState = (props: any) => {
                 toastMessage("An assignment plagarism test has completed", "success");
                 return data;
             }else {
-                toastMessage(data.error, "error");
-                return {};
+                await checkPlagarism(assignmentID, studentIDs, answers);
             }
         }
         catch(err){
             console.log(err);
-            return {};
+            await checkPlagarism(assignmentID, studentIDs, answers);
         }
 
     }

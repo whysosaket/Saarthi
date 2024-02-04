@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useEffect} from "react";
 const ClassroomContext = createContext<any>({});
 import { toast } from "react-toastify";
 
