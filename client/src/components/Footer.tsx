@@ -5,7 +5,7 @@ const Footer = () => {
         <img src="/logo.png" alt="logo" className="w-10 h-10" />
         <p>Copyright © 2024 - All right reserved</p>
       </aside>
-      <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+      <nav className="grid-flow-col gap-4 hidden md:flex md:place-self-center md:justify-self-end">
         <a>
           <svg
             xmlns="http://www.w3.org/2000/svg"

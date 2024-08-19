@@ -3,6 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import GlobalContext from "../context/GlobalContext";
 
+// https://i.pinimg.com/1200x/4f/e7/11/4fe711959a0dd8c75c16debbeebb1f96.jpg
+
 const Navbar = () => {
 
   const {isAuthenticated, handleLogout} = useContext(GlobalContext);
@@ -22,13 +24,13 @@ const Navbar = () => {
 
   return (
     <>
-      <header className={`header px-2 md:px-8 py-2 fixed dark:text-white top-0 flex items-center h-16 justify-between w-full z-30 bg-opacity-80 transition duration-300 ease-in-out ${!top ? 'bg-gray-900 backdrop-blur-sm shadow-lg text-white' : 'text-black'}`}>
+      <header className={`header px-6 md:px-8 py-2 fixed dark:text-white top-0 flex items-center h-16 justify-between w-full z-30 bg-opacity-80 transition duration-300 ease-in-out ${!top ? 'bg-gray-900 backdrop-blur-sm shadow-lg text-white' : 'text-black'}`}>
         {/* logo */}
         <Link
           to="/"
           className="md:w-3/12 w-6/12 p-2 flex justify-start my-aut mt-0"
         >
-          <img className="fill-indigo-400 -mr-6" height={50} width={80} src="/logo.png" />
+          <img className="fill-indigo-400 -ml-8 md:-ml-4 -mr-6" height={50} width={80} src="/logo.png" />
           <span className={`${!top?"text-white":"bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400"} my-auto font-bold text-xl`}>
             aarthi
           </span>
@@ -52,25 +54,32 @@ const Navbar = () => {
           {!isAuthenticated? (
             <Link
               to="/login"
-              className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
+              className={`rounded-2xl shadow-md px-4 py-1 font-semibold bg-slate-400/30 text-white bg-opacity-75`}
             >
               Login
             </Link>
           ) : (
-            <button
-            onClick={()=> {
-              handleLogout();
-              navigate("/");
-            }}
-            className={`rounded-md shadow-md px-4 py-2 font-semibold btn glass text-white bg-opacity-75`}
-            >
-              Logout
-            </button>
+            // <button
+            // onClick={()=> {
+            //   handleLogout();
+            //   navigate("/");
+            // }}
+            // className={`rounded-md shadow-md px-4 py-2 font-semibold btn text-white bg-opacity-75`}
+            // >
+            //   Logout
+            // </button>
+            <>
+              <div className="w-10 h-10 border-2 cursor-pointer select-none border-blue-300 rounded-full overflow-hidden">
+                <img className="" src="https://i.pinimg.com/1200x/4f/e7/11/4fe711959a0dd8c75c16debbeebb1f96.jpg" />
+              </div>
+            </>
           )}
         </div>
       </header>
     </>
   );
 };
+
+
 
 export default Navbar;
