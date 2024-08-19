@@ -37,7 +37,7 @@ const CreateClassroomForm = () => {
         initial={{ x: 300 }}
         animate={{ x: 0 }}
         transition={{ duration: 0.4 }}
-        className="p-8 w-1/2"
+        className="p-8 md:w-1/2"
       >
         {copyActive ? (
           <CopyUrl url={url} toastMessage={toastMessage}  />
@@ -47,7 +47,7 @@ const CreateClassroomForm = () => {
               <div className="mt-6">
                 <div className="relative">
                   <input
-                    className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                    className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                     type="text"
                     placeholder="Classroom Name"
                     ref={nameRef}
@@ -58,7 +58,7 @@ const CreateClassroomForm = () => {
                 </div>
                 <div className="relative mt-3">
                   <input
-                    className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-200 focus:shadow-outline"
+                    className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-200 focus:shadow-outline"
                     type="text"
                     placeholder="Subject"
                     ref={subjectRef}
@@ -69,7 +69,7 @@ const CreateClassroomForm = () => {
                 </div>
                 <div className="relative mt-3">
                   <input
-                    className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                    className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                     type="text"
                     placeholder="Description"
                     ref={descriptionRef}
@@ -81,10 +81,10 @@ const CreateClassroomForm = () => {
                 <div className="flex items-center justify-center mt-8">
                   <button
                     onClick={handleCreateClassroom}
-                    className="text-white py-2 px-4 rounded-xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                    className="text-white py-2 px-4 rounded-3xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                   >
                     <SiGoogleclassroom className="mr-2" size={20} />
-                    <span className="my-auto">Create Classroom</span>
+                    <span className="my-auto">Create</span>
                   </button>
                 </div>
               </div>

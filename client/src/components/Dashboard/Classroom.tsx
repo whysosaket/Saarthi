@@ -83,7 +83,7 @@ const Classroom = () => {
           className="md:w-1/2"
         >
           <ClassroomInfo classroomInfo={classroomInfo} />
-          <div className="flex justify-start p-12">
+          <div className="flex justify-center my-4 md:my-0 md:justify-start md:p-12">
             <motion.button
               initial={{ x: -70 }}
               animate={{ x: 0 }}

@@ -72,7 +72,7 @@ const AssignmentUploadForm = () => {
         initial={{ opacity: 0,y: 300 }}
         animate={{ opacity: 1,y: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="flex justify-center w-full mx-auto sm:max-w-lg"
+        className="w-4/5 flex justify-center md:w-full mx-auto sm:max-w-lg"
       >
         <div className="flex flex-col items-center justify-center w-full h-auto my-8 py-6 bg-white/10 sm:w-3/4 sm:rounded-lg sm:shadow-xl">
           <div className="mt-10 mb-10 text-center">
@@ -132,10 +132,10 @@ const AssignmentUploadForm = () => {
               <div className="flex items-center justify-center w-full">
                 <button
                   onClick={handleFileUpload}
-                  className="text-white py-2 px-4 rounded-xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded-3xl flex items-center bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
                   <FiUploadCloud className="mr-2" size={20} />
-                  Upload Files
+                  Upload
                 </button>
               </div>
             )

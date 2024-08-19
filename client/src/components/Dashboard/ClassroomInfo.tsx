@@ -2,7 +2,7 @@
 
 const ClassroomInfo = (props: {classroomInfo: any}) => {
   return (
-    <div className='w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto'>
+    <div className='md:w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto'>
         <div className="">
             <h1 className="font-semibold text-xl">{props.classroomInfo.className} (<span className="inline-block">{ props.classroomInfo.classRoomId }</span>)</h1>
             <hr className="my-4" />

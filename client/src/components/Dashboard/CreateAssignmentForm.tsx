@@ -85,14 +85,14 @@ const CreateAssignmentForm = () => {
         initial={{ opacity: 0, x: 300 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="p-8"
+        className="px-8 md:p-8"
       >
         <>
           <div className="bg-gray-100 bg-opacity-10 rounded-xl py-12 px-4 lg:px-24">
             <div className="mt-6">
               <div className="relative">
                 <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   type="text"
                   placeholder="Assignment Name"
                   ref={nameRef}
@@ -105,7 +105,7 @@ const CreateAssignmentForm = () => {
                 <select
                   value={selectedClassroom || ""}
                   onChange={handleClassroomChange}
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                 >
                   <option value="" disabled>
                     Select Classroom
@@ -125,7 +125,7 @@ const CreateAssignmentForm = () => {
               </div>
               <div className="relative mt-3">
                 <input
-                  className="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   type="text"
                   placeholder="Description"
                   ref={descriptionRef}
@@ -136,7 +136,7 @@ const CreateAssignmentForm = () => {
               </div>
               <div className="relative mt-3">
                 <input
-                  className="appearance-none border pr-2 pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-md w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
+                  className="appearance-none border pr-2 pl-12 border-gray-100/20 shadow-sm focus:shadow-md focus:placeholder-gray-200  transition  rounded-3xl w-full py-3 text-gray-200 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                   type="date"
                   ref={dueDateRef}
                 />
@@ -147,10 +147,10 @@ const CreateAssignmentForm = () => {
               <div className="flex items-center justify-center mt-8">
                 <button
                   onClick={handleCreateAssignment}
-                  className="text-white py-2 px-4 rounded-xl flex items-center cursor-pointer bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  className="text-white py-2 px-4 rounded-3xl flex items-center cursor-pointer bg-blue-500 hover:bg-blue-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
                 >
                   <MdAssignment className="h-6 w-6 inline-block mr-2" />
-                  Create Assignment
+                  Create
                 </button>
               </div>
             </div>

@@ -78,8 +78,8 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
         initial={{ opacity: 0, x: -300 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.2}}
-        className="w-4/5 bg-white/5 rounded-xl p-8">
-            <div className="text-white text-3xl font-semibold">
+        className="md:w-4/5 bg-white/5 rounded-xl p-8">
+            <div className="text-white text-2xl md:text-3xl font-semibold">
                 {assignment.assignmentName}
             </div>
             <div className="text-white text-sm font-extralight">
@@ -110,11 +110,11 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
                 </div>
             </div>
             <div className="flex justify-start">
-                <button onClick={handleDownloadQuestions} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                <button onClick={handleDownloadQuestions} className="bg-blue-600/80 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl flex items-center">
                     <LuDownloadCloud className="my-auto h-5 w-5 mr-2" />
-                    Download Questions
+                    Questions
                 </button>
-                <button onClick={handleDownloadAnswers} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center">
+                <button onClick={handleDownloadAnswers} className="bg-green-600/80 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-3xl ml-4 flex items-center">
                     <LuDownloadCloud className="my-auto h-5 w-5 mr-2" />
                     Answers
                 </button>
@@ -124,18 +124,18 @@ const AssignmentInfo = (props: {assignmentID: string}) => {
         initial={{ opacity: 0, x: -300 }}
         animate={{ opacity: 1,x: 0 }}
         transition={{ duration: 0.7, delay: 0.4}}
-        className="w-4/5 bg-white/5 rounded-xl p-8 mt-6">
-            <div className="text-white text-3xl font-semibold">
+        className="md:w-4/5 bg-white/5 rounded-xl p-8 mt-6">
+            <div className="text-white text-2xl md:text-3xl font-semibold">
                 Manage Assignment
             </div>
-            <div className="text-white text-sm font-extralight mt-6 flex">
-                <button onClick={handleDeleteAssignment} className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded flex items-center">
+            <div className="text-white text-sm font-extralight mt-6 flex justify-center md:justify-start">
+                <button onClick={handleDeleteAssignment} className="bg-red-600/80 hover:bg-red-700 cursor-pointer text-white font-bold py-2 px-4 rounded-3xl flex items-center">
                     <MdDeleteOutline className=" my-auto h-5 w-5 mr-2" />
                     Delete
                 </button>
-                <button onClick={handleCheckPlagarism} className="bg-yellow-500 hover:bg-yellow-700 text-white cursor-pointer font-bold py-2 px-4 rounded ml-4 flex items-center">
+                <button onClick={handleCheckPlagarism} className="bg-yellow-500/80 hover:bg-yellow-700 text-white cursor-pointer font-bold py-2 px-4 rounded-3xl ml-4 flex items-center">
                     <FaRegCopy className="my-auto h-5 w-5 mr-2" />
-                    Check Plagarism
+                    Plagarism
                 </button>
             </div>
         </motion.div>

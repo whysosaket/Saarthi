@@ -11,16 +11,16 @@ const CreateAssignmnet = () => {
             initial={{ x: -50 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-3xl font-extralight text-white/50"
+            className="text-3xl font-extralight text-white/50 ml-8 mb-6"
           >
             Create Assignment
           </motion.h3>
         </div>
-          <div className="flex justify-center">
-            <div className="w-1/2">
+          <div className="md:flex justify-center">
+            <div className="md:w-1/2">
                 <CreateAssignmentForm />
             </div>
-            <div className="w-1/2">
+            <div className="md:w-1/2">
               <AssignmentUploadForm />
             </div>
           </div>

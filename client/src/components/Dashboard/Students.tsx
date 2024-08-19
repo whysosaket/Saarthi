@@ -12,7 +12,7 @@ const Students = (props: {students: any, classroomID: string}) => {
         setRemovedStudents([...removedStudents, studentID]);
     }
   return (
-    <div className='w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto'>
+    <div className='md:w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto'>
         <h1 className="font-semibold text-2xl mb-4">Students</h1>
         <div className="max-h-60 overflow-y-scroll">
         {

@@ -41,17 +41,17 @@ const SubmitFeedback = (props: { assignmentId: string, setCounter: any, answerID
       <div className="text-white text-2xl font-semibold">
         {/* {assignment.assignmentName} */} Send Feedback
       </div>
-      <input ref={feedbackRef} type="text" className="w-full h-20 text-white bg-white/10 text-sm font-extralight my-3 p-4 rounded-lg " placeholder="Enter your feedback" />
-      <div className="flex justify-start my-4">
-      <button onClick={handleSendFeedback} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center cursor-pointer">
+      <input ref={feedbackRef} type="text" className="w-full text-white border border-gray-100/50 bg-white/10 text-sm font-extralight my-3 py-2 px-4 rounded-3xl " placeholder="Enter your feedback" />
+      <div className="flex justify-center md:justify-start my-4">
+      <button onClick={handleSendFeedback} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl flex items-center cursor-pointer">
         <MdOutlineFeedback className="mr-2 my-auto" size={20} />
-          Send Feedback
+          Send
         </button>
         <button
         onClick={handleSendAIFeedback}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4 flex items-center cursor-pointer">
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-3xl ml-4 flex items-center cursor-pointer">
           <FaWandMagicSparkles className="mr-2" size={20} />
-          Send AI Feedback
+          AI
         </button>
         </div>
     </motion.div>

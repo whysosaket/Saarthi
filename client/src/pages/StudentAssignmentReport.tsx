@@ -65,11 +65,11 @@ const StudentAssignmentReport = () => {
         Assignment
         <span className="text-blue-500 ml-2">Report</span>
       </motion.h1>
-    <div className="w-full flex justify-center my-8">
-        <div className="w-1/2">
+    <div className="w-full md:flex justify-center my-8">
+        <div className="md:w-1/2">
             <SubmittedAssignmentInfo a={response} isStudent={true} setCounter={setCounter} />
         </div>
-        <div className="w-1/2">
+        <div className="md:w-1/2">
             <Feedbacks feedbacks={feedbacks} />
             <RaiseDispute assignmentId={assignmentID} setCounter={setCounter} />
         </div>

@@ -6,7 +6,7 @@ const Students = (props: { classroomInfo: any }) => {
         initial={{ opacity: 0, x: 300 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="w-4/5 bg-white/5 rounded-xl p-8"
+        className="md:w-4/5 bg-white/5 rounded-xl p-8"
       >
         <div className="text-white text-3xl font-semibold">Students</div>
         <div className="max-h-96 overflow-y-scroll mt-8">

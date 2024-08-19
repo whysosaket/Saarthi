@@ -10,7 +10,7 @@ const CreateClassroom = () => {
             initial={{ x: -50 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-3xl font-extralight text-white/50"
+            className="text-3xl ml-8 font-extralight text-white/50"
           >
             Create Classroom
           </motion.h3>

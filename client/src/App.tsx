@@ -60,7 +60,7 @@ function App() {
             </Route>
             <Route path="*" element={<_404 />} />
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
           </AssignmentState>
           </StudentState>

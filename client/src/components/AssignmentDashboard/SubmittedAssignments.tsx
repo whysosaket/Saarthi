@@ -14,7 +14,7 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
   }, []);
 
   const handleGetSubmittedAssignments = async () => {
-    let response = await getSubmittedAssignments(props.assignmentID);
+    const response = await getSubmittedAssignments(props.assignmentID);
     if (response) {
         setSubmittedAssignments(response);
     }
@@ -36,7 +36,7 @@ const SubmittedAssignments = (props: { assignmentID: string }) => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
     className="w-full">
-      <div className="bg-white/10 rounded-xl p-4">
+      <div className="bg-white/10 rounded-xl p-4 text-xs md:text-base">
         <h1 className="font-semibold text-2xl text-center">
           Submitted Assignments
         </h1>

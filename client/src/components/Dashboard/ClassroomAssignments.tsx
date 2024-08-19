@@ -15,7 +15,7 @@ const ClassroomAssignments = (props: {classroomID: string}) => {
         }
     }
   return (
-    <div className="w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto mt-6">
+    <div className="md:w-5/6 bg-white bg-opacity-5 p-6 rounded-xl mx-auto mt-6">
         <h1 className="font-semibold text-2xl mb-4">Assignments</h1>
         <div className="max-h-44 overflow-y-scroll">
         {
