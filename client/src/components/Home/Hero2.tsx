@@ -45,25 +45,26 @@ const Hero2 = () => {
   return (
     <div
       id="hero2"
-      className="w-full my-8 flex justify-center py-20 px-16 h-[700px] text-white"
+      className="w-full my-8 md:flex justify-center p-4 md:py-20 md:px-16 md:h-[700px] text-white"
     >
-      <div className="w-1/2 flex flex-col text-lg">
+      <div className="md:w-1/2 flex flex-col text-lg">
         <Plx
           parallaxData={growParallaxData}
-          className="font-semibold text-[60px]"
+          className="font-semibold text-4xl md:text-[60px] text-center md:text-start"
         >
-          <span className="font-bold text-blue-500 text-[80px] mr-4">Get</span>
+          <span className="font-bold text-blue-500 md:text-[80px] mr-4">Get</span>
           <Plx parallaxData={growParallaxData} className="inline-block">
             Started
           </Plx>
         </Plx>
+        <div className="w-full flex justify-center md:justify-start">
         <Atropos
           activeOffset={40}
           shadowScale={1.05}
           onEnter={() => console.log("Enter")}
           onLeave={() => console.log("Leave")}
           onRotate={(x, y) => console.log("Rotate", x, y)}
-          className="w-fit mt-8 px-4 h-96 cursor-pointer"
+          className="md:w-fit w-9/12 md:mt-8 px-4 h-96 cursor-pointer"
         >
           <ul className="steps steps-vertical my-8 accent">
             <li className="step step-primary">
@@ -93,12 +94,12 @@ const Hero2 = () => {
             </li>
           </ul>
         </Atropos>
-
-        <div className="flex">
+        </div>
+        <div className="flex w-full justify-center md:justify-start">
           <Plx
             parallaxData={rotateParallaxData}
             onClick={handleGotoJoin}
-            className="ml-8 py-3 px-4 gap-x-2 w-1/4 text-md font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="ml-8 py-3 px-4 gap-x-2 md:w-1/4 text-md font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
             Register
           </Plx>
@@ -106,16 +107,16 @@ const Hero2 = () => {
           <Plx
             parallaxData={rotateParallaxData}
             onClick={handleGotoTop}
-            className="ml-8 py-3 px-4 gap-x-2 w-1/4 text-md flex justify-center items-center font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="ml-8 py-3 px-4 gap-x-2 md:w-1/4 text-md flex justify-center items-center font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
-            <FaArrowUp className="h-6 w-6 mr-2" />
+            <FaArrowUp className="md:h-6 md:w-6 mr-2" />
             Top
           </Plx>
         </div>
       </div>
       <Plx
         parallaxData={rotateParallaxData}
-        className="w-1/2 flex justify-center"
+        className="w-1/2 hidden md:flex justify-center"
       >
         <Atropos
           activeOffset={70}

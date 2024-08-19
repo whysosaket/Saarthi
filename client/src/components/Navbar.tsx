@@ -22,7 +22,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className={`header px-8 py-2 fixed dark:text-white top-0 flex items-center h-16 justify-between w-full z-30 bg-opacity-80 transition duration-300 ease-in-out ${!top ? 'bg-gray-900 backdrop-blur-sm shadow-lg text-white' : 'text-black'}`}>
+      <header className={`header px-2 md:px-8 py-2 fixed dark:text-white top-0 flex items-center h-16 justify-between w-full z-30 bg-opacity-80 transition duration-300 ease-in-out ${!top ? 'bg-gray-900 backdrop-blur-sm shadow-lg text-white' : 'text-black'}`}>
         {/* logo */}
         <Link
           to="/"

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { Request, Response } from "express";
-import { feedback } from "../dev/data";
+// import { feedback } from "../dev/data";
 
 import StudentAssignment from "../models/StudentAssignment";
 const NGROK_URL = process.env.NGROK as string;
@@ -105,7 +105,7 @@ const getMarks = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
+/*
 const getAIfeedback = async (req: Request, res: Response) => {
   let { assignmentID, answer } = req.body;
   try {
@@ -151,5 +151,7 @@ const getAIfeedback = async (req: Request, res: Response) => {
     }
   }
 };
+*/
 
-export { checkPlagarism, getMarks, getAIfeedback };
+// export { checkPlagarism, getMarks, getAIfeedback };
+export { checkPlagarism, getMarks};
