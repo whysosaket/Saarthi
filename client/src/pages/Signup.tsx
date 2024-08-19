@@ -57,7 +57,7 @@ const Signup = () => {
                 </div>
                 <div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-5">
+                    <div className="w-full px-3 mb-3">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Name
                       </label>
@@ -67,7 +67,7 @@ const Signup = () => {
                         </div>
                         <input
                           type="text"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
+                          className="font-space w-full mt-1 -ml-10 pl-10 pr-3 py-2 rounded-3xl border-2 border-gray-200/10 outline-none focus:border-blue-500/50"
                           placeholder="John"
                           ref={nameref}
                         />
@@ -75,7 +75,7 @@ const Signup = () => {
                     </div>
                   </div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-5">
+                    <div className="w-full px-3 mb-3">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Email
                       </label>
@@ -85,7 +85,7 @@ const Signup = () => {
                         </div>
                         <input
                           type="email"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
+                          className="font-space w-full mt-1 -ml-10 pl-10 pr-3 py-2 rounded-3xl border-2 border-gray-200/10 outline-none focus:border-blue-500/50"
                           placeholder="johnsmith@example.com"
                           ref={emailref}
                         />
@@ -93,7 +93,7 @@ const Signup = () => {
                     </div>
                   </div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-5">
+                    <div className="w-full px-3 mb-10">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Password
                       </label>
@@ -103,7 +103,7 @@ const Signup = () => {
                         </div>
                         <input
                           type="password"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
+                          className="font-space w-full mt-1 -ml-10 pl-10 pr-3 py-2 rounded-3xl border-2 border-gray-200/10 outline-none focus:border-blue-500/50"
                           placeholder="************"
                           ref={passwordref}
                         />
@@ -114,9 +114,9 @@ const Signup = () => {
                     <div className="w-full px-3 mb-5">
                       <button
                         onClick={handleClick}
-                        className="block w-full max-w-xs mx-auto bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
+                        className="block w-full  max-w-xs mx-auto bg-blue-700/80 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-3xl px-3 py-2 font-semibold"
                       >
-                        REGISTER NOW
+                        Register Now
                       </button>
                     </div>
                   </div>

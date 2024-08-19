@@ -35,7 +35,7 @@ const Login = () => {
         animate={{scaleY: 1}}
         transition={{duration: 0.04}}
         className="bg-gray-900 bg-opacity-0 flex items-center justify-center p-4 md:p-0">
-          <div className="bg-gray-900 bg-opacity-40 text-white shadow-xl w-full overflow-hidden rounded-3xl my-16 md:my-0 md:rounded-none">
+          <div className="bg-gray-900 bg-opacity-40 text-white shadow-xl w-full overflow-hidden rounded-3xl my-14 md:my-0 md:rounded-none">
             <div className="md:flex w-full">
               <motion.div initial={{x: 500,rotateY: 180, opacity: 0}} animate={{x: 0,rotateY: 0, opacity: 1}} transition={{duration: 0.6}} className="hidden md:block w-1/2 bg-transparent py-10 px-10">
               <Atropos
@@ -49,7 +49,7 @@ const Login = () => {
                 <img className="backdrop-blur-lg" src={SignupImage} />
                 </Atropos>
               </motion.div>
-              <motion.div initial={{x: -500, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.6}} className="w-full md:w-1/2 py-10 px-5 md:px-10">
+              <motion.div initial={{x: -500, opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.6}} className="w-full md:w-1/2 md:py-10 px-5 md:px-10">
                 <div className="text-center mb-10">
                   <h1 className="font-bold text-3xl text-white">Login</h1>
                   <p>Enter your information to login</p>
@@ -66,7 +66,7 @@ const Login = () => {
                         </div>
                         <input
                           type="email"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
+                          className="font-space w-full mt-1 -ml-10 pl-10 pr-3 py-2 rounded-3xl border-2 border-gray-200/10 outline-none focus:border-blue-500/50"
                           placeholder="johnsmith@email.com"
                           ref={usernameRef}
                         />
@@ -74,7 +74,7 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-12">
+                    <div className="w-full px-3 mb-10">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Password
                       </label>
@@ -84,7 +84,7 @@ const Login = () => {
                         </div>
                         <input
                           type="password"
-                          className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-blue-500"
+                          className="font-space w-full mt-1 -ml-10 pl-10 pr-3 py-2 rounded-3xl border-2 border-gray-200/10 outline-none focus:border-blue-500/50"
                           placeholder="************"
                           ref={passwordRef}
                         />
@@ -93,8 +93,8 @@ const Login = () => {
                   </div>
                   <div className="flex -mx-3">
                     <div className="w-full px-3 mb-5">
-                      <button onClick={handleLogin} className="block w-full  max-w-xs mx-auto bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold">
-                        LOGIN
+                      <button onClick={handleLogin} className="block w-full  max-w-xs mx-auto bg-blue-700/80 hover:bg-blue-700 focus:bg-blue-700 text-white rounded-3xl px-3 py-2 font-semibold">
+                        Login
                       </button>
                     </div>
                   </div>
