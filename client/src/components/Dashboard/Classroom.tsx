@@ -64,23 +64,23 @@ const Classroom = () => {
         handleDeleteClassroom={handleDeleteClassroom}
         setShowModal={setShowModal}
     />}
-    <div className="flex-1 px-2 sm:px-0 w-full">
-      <div className="flex justify-between items-center">
+    <div className="md:flex-1 px-2 sm:px-0 w-full">
+      <div className="md:flex justify-between items-center">
         <motion.h3
           initial={{ x: -50 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-3xl font-extralight text-white/50"
+          className="text-3xl font-extralight text-white/50 ml-16"
         >
           Classroom Info
         </motion.h3>
       </div>
-      <div className="flex justify-center my-4">
+      <div className="md:flex justify-center my-4">
         <motion.div
           initial={{ x: -100 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-1/2"
+          className="md:w-1/2"
         >
           <ClassroomInfo classroomInfo={classroomInfo} />
           <div className="flex justify-start p-12">
@@ -89,29 +89,29 @@ const Classroom = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
                 onClick={() => setShowModal(true)}
-              className="bg-red-600 text-white font-semibold cursor-pointer hover:bg-red-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
+              className="bg-red-600/80 text-white font-semibold cursor-pointer hover:bg-red-700 p-2 rounded-3xl px-3 hover:text-white smooth-hover mx-2 flex items-center"
             >
-              <MdDeleteForever className="h-6 w-6 mr-2" />
-              Delete Classroom
+              <MdDeleteForever className="h-5 w-5 mr-1" />
+              Delete
             </motion.button>
             <motion.button
               initial={{ x: -70 }}
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
               onClick={copyJoinLink}
-              className="bg-green-600 text-white font-semibold cursor-pointer hover:bg-green-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
+              className="bg-green-600/80 text-white font-semibold cursor-pointer hover:bg-green-700 p-2 rounded-3xl px-3 hover:text-white smooth-hover mx-2 flex items-center"
             >
-              <LuClipboardCopy className="h-6 w-6 mr-2" />
-                Join Link
+              <LuClipboardCopy className="md:h-5 md:w-5 mr-2" />
+                Link
             </motion.button>
             <motion.button
               initial={{ x: -70 }}
               animate={{ x: 0 }}
               transition={{ duration: 0.3, delay: 0.3 }}
               onClick={gradeBook}
-              className="bg-blue-600 text-white font-semibold cursor-pointer hover:bg-blue-700 p-2 rounded-md hover:text-white smooth-hover mx-2 flex items-center"
+              className="bg-blue-600/80 text-white font-semibold cursor-pointer hover:bg-blue-700 p-2 rounded-3xl px-3 hover:text-white smooth-hover mx-2 flex items-center"
             >
-              <IoBookSharp className="h-6 w-6 mr-2" />
+              <IoBookSharp className="md:h-5 md:w-5 mr-2" />
               GradeBook
             </motion.button>
           </div>
@@ -120,7 +120,7 @@ const Classroom = () => {
           initial={{ x: 100 }}
           animate={{ x: 0 }}
           transition={{ duration: 0.4 }}
-          className="w-1/2"
+          className="md:w-1/2"
         >
           <Students
             students={classroomInfo.studentIds}
@@ -136,8 +136,8 @@ const Classroom = () => {
 
 const DeleteModal = (props: {handleDeleteClassroom: any, setShowModal: any}) => {
   return (
-    <div className="bg-black/30 backdrop-blur-md h-screen w-full top-0 left-0 z-50 absolute flex justify-center">
-      <div className="rounded-lg bg-white/20 p-8 shadow-2xl m-auto w-1/3">
+    <div className="bg-black/30 backdrop-blur-md h-screen w-full top-0 left-0 z-50 fixed md:absolute flex justify-center">
+      <div className="rounded-lg bg-white/20 p-8 shadow-2xl m-auto md:w-1/3">
         <h2 className="text-lg font-bold">Are you sure you want to do that?</h2>
         <p className="mt-2 text-sm text-gray-200">
           You are going to delete this classroom, are you 100% sure?

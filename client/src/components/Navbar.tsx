@@ -69,9 +69,9 @@ const Navbar = () => {
             //   Logout
             // </button>
             <>
-              <div className="w-10 h-10 border-2 cursor-pointer select-none border-blue-300 rounded-full overflow-hidden">
+              <Link to="/dashboard" className="w-10 h-10 border-2 cursor-pointer select-none border-blue-300 rounded-full overflow-hidden">
                 <img className="" src="https://i.pinimg.com/1200x/4f/e7/11/4fe711959a0dd8c75c16debbeebb1f96.jpg" />
-              </div>
+              </Link>
             </>
           )}
         </div>
