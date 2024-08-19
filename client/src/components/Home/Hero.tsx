@@ -70,7 +70,7 @@ const Hero = () => {
         >
           <a href="#hero2"
             type="button"
-            className="my-4 py-3 px-4 gap-x-2 mx-auto md:w-1/5 text-md font-semibold rounded-lg border border-transparent bg-blue-600/80 text-white hover:bg-blue-700/50 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="my-4 py-3 px-6 md:px-4 gap-x-2 mx-auto md:w-1/5 text-md font-semibold rounded-3xl text-center border border-transparent bg-blue-600/80 text-white hover:bg-blue-700/50 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
             Get Started
           </a>

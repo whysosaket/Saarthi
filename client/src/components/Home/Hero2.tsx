@@ -52,7 +52,7 @@ const Hero2 = () => {
           parallaxData={growParallaxData}
           className="font-semibold text-4xl md:text-[60px] text-center md:text-start"
         >
-          <span className="font-bold text-blue-500 md:text-[80px] mr-4">Get</span>
+          <span className="font-bold text-blue-500 md:text-[60px] mr-4">Get</span>
           <Plx parallaxData={growParallaxData} className="inline-block">
             Started
           </Plx>
@@ -99,7 +99,7 @@ const Hero2 = () => {
           <Plx
             parallaxData={rotateParallaxData}
             onClick={handleGotoJoin}
-            className="ml-8 py-3 px-4 gap-x-2 md:w-1/4 text-md font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className=" py-2 px-6 gap-x-2 md:w-1/4 text-md font-semibold rounded-3xl text-center cursor-pointer border border-transparent bg-blue-700/80 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
             Register
           </Plx>
@@ -107,7 +107,7 @@ const Hero2 = () => {
           <Plx
             parallaxData={rotateParallaxData}
             onClick={handleGotoTop}
-            className="ml-8 py-3 px-4 gap-x-2 md:w-1/4 text-md flex justify-center items-center font-semibold rounded-lg text-center cursor-pointer border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+            className="ml-8 py-2 px-6 gap-x-2 md:w-1/4 text-md flex justify-center items-center font-semibold rounded-3xl text-center cursor-pointer border border-transparent bg-blue-700/80 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
             <FaArrowUp className="md:h-6 md:w-6 mr-2" />
             Top
