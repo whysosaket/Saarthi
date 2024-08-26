@@ -1,6 +1,6 @@
 import { BsPeopleFill } from "react-icons/bs";
-import { IoHomeSharp, IoSettingsSharp } from "react-icons/io5";
-import { MdAssignment, MdFileDownload } from "react-icons/md";
+import { IoLogOutOutline } from "react-icons/io5";
+import { MdAssignment} from "react-icons/md";
 import GlobalContext from "../../context/GlobalContext";
 import { useContext } from "react";
 import { PiStudent } from "react-icons/pi";
@@ -10,6 +10,10 @@ import { Link } from "react-router-dom";
 
 const VerticalNavbar = () => {
   const { handleComponentChange } = useContext(GlobalContext);
+  const handleLogout = ()=>{
+    localStorage.removeItem("auth-token");
+    window.location.href="/";
+  }
 
   return (
     <motion.div
@@ -19,15 +23,6 @@ const VerticalNavbar = () => {
       className="bg-gray-900 px-2 lg:px-4 py-2 lg:py-10 sm:rounded-xl flex lg:flex-col justify-between"
     >
       <nav className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
-        <motion.button
-          initial={{ scale: 0.6, rotate: 90 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
-          
-        >
-          <IoHomeSharp className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
-        </motion.button>
         {/* Active: bg-gray-800 text-white, Not active: text-white/50 */}
         <motion.button
           initial={{ scale: 0.6, rotate: 90 }}
@@ -60,21 +55,13 @@ const VerticalNavbar = () => {
         </motion.button>
         </Link>
         <motion.button
+          onClick={handleLogout}
           initial={{ scale: 0.6, rotate: 90 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 0.3, delay: 0.5 }}
           className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
         >
-          <IoSettingsSharp className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
-        </motion.button>
-        <motion.button
-          initial={{ scale: 0.6, rotate: 90 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.3, delay: 0.6 }}
-          className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
-          
-        >
-          <MdFileDownload className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
+          <IoLogOutOutline className="lg:h-6 lg:w-6 sm:h-8 sm:w-8" />
         </motion.button>
       </div>
     </motion.div>
