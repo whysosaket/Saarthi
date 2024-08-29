@@ -33,9 +33,9 @@ Saarthi is an innovative educational platform designed to provide a seamless and
 
 ### Mobile Views
 <div style="display: flex; justify-content: space-between;">
-   <img src="./screenshots/mob1.jpeg" style="width: 25%;" />
-   <img src="./screenshots/mob2.jpeg" style="width: 25%;" />
-   <img src="./screenshots/mob3.jpeg" style="width: 25%;" />
+   <img src="./screenshots/mob1.png" style="width: 25%;" />
+   <img src="./screenshots/mob2.png" style="width: 25%;" />
+   <img src="./screenshots/mob3.png" style="width: 25%;" />
 </div>
 
 ### Tech Stack
